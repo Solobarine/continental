@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lobster&family=Poppins:wght@400;900&family=Sacramento&display=swap');
+
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+:root {
+  color-scheme: light dark;
+  --white: rgba(255, 255, 255, 0.87);
+  --text: #444;
+  --primary: #410101;
+  --secondary: #aaa;
+  --faint: #eee;
+  --accent: #e0071c;
+  --red: #f00;
+  --green: #0a0;
+  background-color: var(--white);
+}
+
+title {
+  font-family: 'Lobster', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--text);
+  font-family: 'Poppins', 'Times New Roman', Times, serif;
+}
+
+#top_app {
+  display: grid;
+  grid-template-rows: 60px 1fr auto;
+  min-height: 100vh;
+}
+
+.logo {
+  fill: var(--accent);
+}
+
+input[type=submit] {
+  background-color: var(--green);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  color: var(--white);
+  margin-bottom: 20px;
+}
