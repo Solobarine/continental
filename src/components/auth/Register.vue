@@ -16,7 +16,8 @@
         :payload="payload" />
       <input
         type="submit"
-        value="Register" />
+        value="Register"
+        @click="register" />
       <p id="other_action">Already a User, <router-link to="/login">Login</router-link></p>
     </form>
   </section>
@@ -25,6 +26,14 @@
 import { reactive } from 'vue'
 import FormInput from './FormInput.vue'
 import { register_inputs } from './inputs'
+import { useUserStore } from '../../stores/UserStore'
+
+const userStore = useUserStore()
+
+const register = (e) => {
+  e.preventDefault()
+  return userStore.register(payload)
+}
 
 const payload = reactive({
   first_name: '',

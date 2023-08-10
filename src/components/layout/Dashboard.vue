@@ -8,7 +8,7 @@
             <p>Balance</p>
             <arrow-up-right />
           </div>
-          <p>$ {{ user.balance }}</p>
+          <p>$ {{ user.balance ? user.balance : 0 }}</p>
         </div>
         <div class="account_details">
           <div>
@@ -25,18 +25,19 @@
           <p>{{ user.email }}</p>
         </div>
       </div>
-      <div id="recents">
-        <div id="recent_transfers">
-          <h4>Recent Transfers</h4>
-          <div>
-            <small>No Transfers, Make the first one</small>
-          </div>
-        </div>
-        <div id="recent_deposits">
-          <h4>Recent Deposits</h4>
-          <div>
-            <small>No Deposits, Make the first one</small>
-          </div>
+      <div id="recents_section">
+        <hr />
+        <h3>Recent Transactions</h3>
+        <hr />
+        <div id="recents">
+          <Suspense>
+            <template #default>
+              <recent-transactions />
+            </template>
+            <template #fallback>
+              <loading />
+            </template>
+          </Suspense>
         </div>
       </div>
     </div>
@@ -92,6 +93,8 @@
 <script setup>
 import ArrowUpRight from '../icons/ArrowUpRight.vue'
 import Card from '../reusables/Card.vue'
+import RecentTransactions from './RecentTransactions.vue'
+import Loading from '../reusables/Loading.vue'
 import { useUserStore } from '../../stores/UserStore'
 import { useTransferStore } from '../../stores/TransferStore'
 import { ref } from 'vue'
@@ -161,8 +164,9 @@ h1 {
   padding: 20px 10px;
   width: 220px;
   min-width: 80px;
-  border: 1px solid var(--text);
+  /* border: 1px solid var(--text); */
   border-radius: 15px;
+  background-color: var(--faint);
 }
 
 .account_details div {
@@ -173,13 +177,20 @@ h1 {
 }
 
 .account_details > p {
-  font-size: 22px;
+  font-size: 18px;
+}
+
+#recents_section {
+  margin-top: 30px;
+}
+
+#recents_section h3 {
+  padding: 10px;
 }
 
 #recents {
   display: flex;
   gap: 30px;
-  margin-top: 60px;
   flex-wrap: wrap;
 }
 

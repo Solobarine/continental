@@ -38,7 +38,6 @@ const payload = reactive({
 
 const login = (e) => {
   e.preventDefault()
-  console.log(userStore)
   return userStore.login(payload)
 }
 
