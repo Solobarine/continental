@@ -8,7 +8,8 @@ const useUserStore = defineStore('users', {
         user: {},
         loading: Boolean(true),
         is_logged_in: false,
-        error: ''
+        error: '',
+        recents: {},
     }),
     actions: {
         setLoggedIn() {
@@ -32,11 +33,9 @@ const useUserStore = defineStore('users', {
                 this.error = ''
                 localStorage.setItem('auth_token', user.data.authorization.token)
                 this.is_logged_in = true
-                console.log(user.data);
                 return router.push('/dashboard')
             })
             .catch(error => {
-                // console.log(error.response, this);
                 this.error = error.response.data.message
             })
         },
@@ -49,6 +48,7 @@ const useUserStore = defineStore('users', {
                 this.error = ''
                 this.is_logged_in = true
                 localStorage.setItem('auth_token', res.data.authorization.token)
+                return router.push('/dashboard')
             })
             .catch(() => this.error = user.response.data.message)
         },
@@ -85,6 +85,17 @@ const useUserStore = defineStore('users', {
             .then(res => res)
             .catch((error) => error)
             return receiver
+        },
+        async recents() {
+            const url = `${domain}/user/recents`
+            const recents = await axios.get(url, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('auth_token')}` 
+                }
+            })
+            console.log(recents);
+            this.recents = recents.data
+            return recents.data
         },
         async logout() {
             const url = `${domain}/logout`

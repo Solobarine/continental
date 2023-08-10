@@ -97,20 +97,31 @@ const makeTransfer = async (e) => {
 }
 </script>
 <style scoped>
-#transfer_form {
-  display: grid;
-  gap: 15px;
+#transfer_section {
+  position: relative;
 }
+/* 
+#transfer_form {
+  
+} */
 
 #transfer_form h3 {
-  margin-top: 30px;
+  margin-top: 10px;
   grid-column: 1 / -1;
 }
 
 form {
-  max-width: 300px;
+  display: grid;
+  gap: 15px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
   margin: auto;
   padding: 10px;
+  background-color: var(--faint);
+  border-radius: 10px;
 }
 
 #select_card {
@@ -161,7 +172,7 @@ select:invalid[focused='true'] {
 
 .payee_account_number > input {
   width: 100%;
-  padding: 10px;
+  padding: 6px;
   border: 1px solid var(--text);
   border-radius: 5px;
 }
@@ -172,6 +183,7 @@ input[type='submit']:disabled {
 
 @media screen and (max-width: 650px) {
   form {
+    position: relative;
     padding-right: 20px;
     max-width: 100%;
   }

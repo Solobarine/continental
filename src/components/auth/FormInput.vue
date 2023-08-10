@@ -9,13 +9,12 @@
       :pattern="props.pattern"
       :focused="focus.value.toString()"
       v-on:blur="change_focus"
-      v-model="props.payload[props.name]"
-    />
+      v-model="props.payload[props.name]" />
     <span class="input_error">{{ props.error_message }}</span>
   </div>
 </template>
 <script setup>
-import { reactive } from "vue";
+import { reactive } from 'vue'
 
 const props = defineProps({
   label: String,
@@ -25,14 +24,14 @@ const props = defineProps({
   required: Boolean,
   pattern: String,
   error_message: String,
-  payload: Object,
-});
+  payload: Object
+})
 
-console.log(props.payload);
-const focus = reactive({ value: false });
+console.log(props.payload)
+const focus = reactive({ value: false })
 const change_focus = () => {
-  focus.value = true;
-};
+  focus.value = true
+}
 </script>
 <style scoped>
 .form_input {
@@ -43,7 +42,7 @@ const change_focus = () => {
 
 input {
   max-height: 44px;
-  padding: 10px;
+  padding: 6px;
   border-radius: 5px;
   border: 1px solid var(--text);
 }
@@ -53,12 +52,12 @@ span {
   font-size: 0.7rem;
 }
 
-input:invalid[focused="true"] ~ span {
+input:invalid[focused='true'] ~ span {
   display: block;
   color: var(--red);
 }
 
-input:invalid[focused="true"] {
+input:invalid[focused='true'] {
   border: 2px solid var(--red);
 }
 </style>
