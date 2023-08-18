@@ -1,22 +1,32 @@
+<img src='./public/logo.svg' width='60'/>
+
 # Continental
+
+<img src='./public/continental_landing.png' />
 
 ## Overview
 
 Welcome to the Continental! This application is built with Vue.js and provides users with the ability to deposit and transfer money. It includes features such as form validation, routing, and route protection state management using Pinia.
 
-## Features
+## 📃 Features
 
 1. **Deposit Money**: Users can deposit funds into their accounts securely using the app. The deposit feature ensures the accuracy of entered amounts and provides real-time updates on the account balance.
 
 2. **Transfer Money**: Continental allows users to transfer money between accounts. With a user-friendly interface, transferring funds is a breeze. The app ensures that the sender has sufficient funds and provides instant confirmation of successful transfers.
 
-3. **Form Validation**: Input forms for deposit and transfer are equipped with robust validation mechanisms. Users receive immediate feedback and error messages if they attempt to submit incomplete or incorrect information.
+3. **Account Number**: Users are given a unique Account Number on successful registration
 
-4. **Routing**: The app utilizes Vue Router to manage navigation seamlessly. Users can move between different sections of the app without page reloads, providing a smooth and responsive experience.
+4. **Form Validation**: Input forms for deposit and transfer are equipped with robust validation mechanisms. Users receive immediate feedback and error messages if they attempt to submit incomplete or incorrect information.
 
-5. **Route Protection**: To ensure the security of user data, certain routes are protected. Users need to authenticate or meet specific criteria to access sensitive sections, such as the transfer page. Route protection is implemented using Pinia for efficient state management.
+5. **Routing**: The app utilizes Vue Router to manage navigation seamlessly. Users can move between different sections of the app without page reloads, providing a smooth and responsive experience.
 
-## Getting Started
+6. **Route Protection**: To ensure the security of user data, certain routes are protected. Users need to authenticate or meet specific criteria to access sensitive sections, such as the transfer page. Route protection is implemented using Pinia for efficient state management.
+
+## 🌍 Backend
+
+The Project also has a Backend. Click <a href='https://github.com/solobarine/continental_backend'>here</a> to view the Backend.
+
+## 🖥️ Getting Started
 
 Follow these steps to set up the Continental on your local machine:
 
@@ -29,7 +39,7 @@ Follow these steps to set up the Continental on your local machine:
 2. **Install Dependencies**: Navigate to the project directory and install the required dependencies using npm or yarn:
 
    ```bash
-   cd continental-financial-app
+   cd continental
    npm install
    ```
 
@@ -39,13 +49,20 @@ Follow these steps to set up the Continental on your local machine:
    npm run serve
    ```
 
-## Tech Stack
+## 💻 Tech Stack
 
-- Vue.js: A progressive JavaScript framework for building user interfaces.
-- Vue Router: The official routing library for Vue.js applications.
-- Pinia: A state management library for Vue.js applications, used for efficient and scalable state management, particularly for route protection.
+- **Vue.js**: A progressive JavaScript framework for building user interfaces.
+- **Vue Router**: The official routing library for Vue.js applications.
+- **Pinia**: A state management library for Vue.js applications, used for efficient and scalable state management, particularly for route protection.
+- **IonIcons**: Free Open Source Icons
 
-## Contribution Guidelines
+## 👤 Author
+
+- Name: **Solomon Barine Akpuru**
+- GitHub: [@solobarine](https://github.com/solobarine)
+- LinkedIn: [solomon-akpuru](https://www.linkedin.com/in/solomon-akpuru)
+
+## 🤝 Contribution Guidelines
 
 We welcome contributions to make Continental Financial Web App even better! If you'd like to contribute, please follow these steps:
 
@@ -55,8 +72,18 @@ We welcome contributions to make Continental Financial Web App even better! If y
 - Commit your changes and push them to your fork.
 - Create a pull request, explaining the changes you've made.
 
-## Contact Us
+## 🙏 Show your Support
+
+Give a ⭐️ if you like the project!
+
+## 📧 Contact Us
 
 If you have any questions, suggestions, or feedback, please feel free to reach out to our team at <b>solobarine@gmail.com</b>.
+
+## 📝 License
+
+Copyright &copy; Solomon Barine Akpuru. All Rights Reserved
+
+Licensed under the <a href='./LICENSE'>MIT</a>
 
 Thank you for using Continental to manage your finances with ease! We hope you have a great experience.
