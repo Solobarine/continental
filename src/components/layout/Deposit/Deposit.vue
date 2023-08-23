@@ -172,8 +172,6 @@ const payload = {
   user_id: useUserStore().user.id
 }
 
-console.log(payload)
-
 const selected_amount = reactive({ value: false })
 
 const one = ref(null)
@@ -196,7 +194,6 @@ const select_deposit_option = (number) => {
   checks.map((check) => check.classList.remove('selected'))
   number.$el.classList.add('selected')
   payload.service = number.$el.parentElement.getAttribute('name')
-  console.log(payload)
 }
 
 const select_amount = (number, bool) => {
@@ -205,7 +202,6 @@ const select_amount = (number, bool) => {
   amounts.map((amount) => amount.classList.remove('selected'))
   number.$el.classList.add('selected')
   payload.amount = parseFloat(number.$el.parentElement.getAttribute('name'))
-  console.log(payload)
 }
 </script>
 <style scoped>

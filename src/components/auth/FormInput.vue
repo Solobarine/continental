@@ -27,7 +27,6 @@ const props = defineProps({
   payload: Object
 })
 
-console.log(props.payload)
 const focus = reactive({ value: false })
 const change_focus = () => {
   focus.value = true

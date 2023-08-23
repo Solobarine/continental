@@ -19,9 +19,5 @@ import { useMessageStore } from '../../../stores/MessageStore'
 
 await useMessageStore().getMessages()
 let inbox = useMessageStore().messages
-let messages = inbox
-const starred = useMessageStore().getStarred()
-console.log(starred)
-console.log(messages)
 </script>
 <style scoped></style>

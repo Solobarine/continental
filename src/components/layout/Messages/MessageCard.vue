@@ -7,8 +7,7 @@
           name="check"
           id="check"
           :checked="props.important"
-          @click="messageStore.toggleImportant(props.id, !props.important)"
-        />
+          @click="messageStore.toggleImportant(props.id, !props.important)" />
         <p id="name">{{ props.sender }}</p>
       </div>
       <strong id="date">{{ convertDate(props.date) }}</strong>
@@ -18,23 +17,20 @@
         class="star"
         :index="props.index"
         :name="props.starred ? 'star' : 'star-outline'"
-        @click="messageStore.toggleStarred(props.id, this, !props.starred)"
-      ></ion-icon>
+        @click="messageStore.toggleStarred(props.id, this, !props.starred)"></ion-icon>
       <strong id="title">{{ props.title }}</strong>
     </div>
     <p id="desc">{{ props.body }}</p>
     <ion-icon
       v-if="!props.opened"
       class="message_alert"
-      name="alert-circle-outline"
-    ></ion-icon>
+      name="alert-circle-outline"></ion-icon>
   </div>
 </template>
 <script setup>
-import { useMessageStore } from "../../../stores/MessageStore";
-import convertDate from "../../../utils/convertDate";
-import { starred, opened } from "../../../utils/messageHelpers";
-const messageStore = useMessageStore();
+import { useMessageStore } from '../../../stores/MessageStore'
+import convertDate from '../../../utils/convertDate'
+const messageStore = useMessageStore()
 
 const props = defineProps({
   index: Number,
@@ -46,8 +42,8 @@ const props = defineProps({
   important: Number,
   opened: Number,
   starred: Number,
-  archived: Number,
-});
+  archived: Number
+})
 </script>
 <style scoped>
 .message_card {
@@ -84,7 +80,7 @@ ion-icon {
   font-size: 18px;
 }
 
-.star[name="star"] {
+.star[name='star'] {
   color: gold;
 }
 
