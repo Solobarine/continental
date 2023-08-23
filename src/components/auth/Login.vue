@@ -52,7 +52,7 @@ console.log(userStore)
 }
 
 #login_form {
-  margin: 40px 10px;
+  margin: 40px auto;
   max-width: 500px;
   backdrop-filter: invert(90%);
   border-radius: 20px;
@@ -102,5 +102,11 @@ console.log(userStore)
   text-align: center;
   padding: 10px 0;
   background-color: var(--secondary);
+}
+
+@media screen and (max-width: 650px) {
+  #login_form {
+    margin: 40px 10px;
+  }
 }
 </style>

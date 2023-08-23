@@ -57,7 +57,7 @@ const payload = reactive({
   grid-template-columns: 1fr 1fr;
   gap: 15px 30px;
   padding: 20px;
-  margin: 40px 10px;
+  margin: 40px auto;
   border: 1px solid var(--primary);
 }
 
@@ -102,6 +102,7 @@ const payload = reactive({
   #register_form {
     display: flex;
     flex-direction: column;
+    margin: 40px 10px;
   }
 }
 </style>
