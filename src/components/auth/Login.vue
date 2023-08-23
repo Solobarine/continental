@@ -52,9 +52,7 @@ console.log(userStore)
 }
 
 #login_form {
-  margin: auto;
-  margin-top: 7%;
-  margin-bottom: 7%;
+  margin: 40px 10px;
   max-width: 500px;
   backdrop-filter: invert(90%);
   border-radius: 20px;
@@ -80,13 +78,12 @@ console.log(userStore)
 
 #other_action {
   text-align: center;
-  color: var(--white);
+  color: var(--primary);
 }
 
 #other_action a {
   text-decoration: none;
   transition: 0.4s ease;
-  color: var(--white);
 }
 
 #other_action a:hover {

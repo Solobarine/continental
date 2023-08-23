@@ -1,6 +1,5 @@
 <template lang="">
   <section id="register_component">
-    <!-- <div></div> -->
     <form id="register_form">
       <h4>Create an Account</h4>
       <FormInput
@@ -58,9 +57,7 @@ const payload = reactive({
   grid-template-columns: 1fr 1fr;
   gap: 15px 30px;
   padding: 20px;
-  margin: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 40px 10px;
   border: 1px solid var(--primary);
 }
 
@@ -99,5 +96,12 @@ const payload = reactive({
 #register_form span {
   color: var(--red);
   font-weight: 600;
+}
+
+@media only screen and (max-width: 650px) {
+  #register_form {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
