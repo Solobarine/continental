@@ -76,121 +76,120 @@
   </div>
 </template>
 <script setup>
-import { useUserStore } from '../../stores/UserStore'
-import convertDate from '../../utils/convertDate'
+  import { useUserStore } from '../../stores/UserStore'
+  import convertDate from '../../utils/convertDate'
 
-const transactions = await useUserStore().recents()
-const user_id = useUserStore().user.id
-console.log(transactions)
-const { deposits, transfers } = transactions
+  const transactions = await useUserStore().recents()
+  const user_id = useUserStore().user.id
+  console.log(transactions)
+  const { deposits, transfers } = transactions
 </script>
 <style>
-#recent_transfers,
-#recent_deposits {
-  flex-grow: 1;
-}
+  #recent_transfers,
+  #recent_deposits {
+    flex-grow: 1;
+  }
 
-.deposit_log {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 40em;
-  row-gap: 20px;
-  padding: 10px;
-  transition: 0.4s ease;
-}
+  .deposit_log {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 40em;
+    row-gap: 20px;
+    padding: 10px;
+    transition: 0.4s ease;
+  }
 
-.deposit_log:hover {
-  background-color: var(--faint);
-}
+  .deposit_log:hover {
+    background-color: var(--faint);
+  }
 
-.deposit_log > div {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
+  .deposit_log > div {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
 
-.deposit_log > div > img {
-  width: 35px;
-}
+  .deposit_log > div > img {
+    width: 35px;
+  }
 
-.deposit_log > div > div {
-  display: grid;
-  gap: 5px;
-}
+  .deposit_log > div > div {
+    display: grid;
+    gap: 5px;
+  }
 
-.status_completed {
-  color: var(--green);
-  padding: 8px;
-  border-radius: 12px;
-}
+  .status_completed {
+    color: var(--green);
+    padding: 8px;
+    border-radius: 12px;
+  }
 
-.status_failed {
-  color: var(--red);
-  padding: 8px;
-  border-radius: 12px;
-}
+  .status_failed {
+    color: var(--red);
+    padding: 8px;
+    border-radius: 12px;
+  }
 
-.status_pending {
-  color: orange;
-  padding: 8px;
-  border-radius: 12px;
-}
+  .status_pending {
+    color: orange;
+    padding: 8px;
+    border-radius: 12px;
+  }
 
-#not_found {
-  color: var(--red);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-}
+  #not_found {
+    color: var(--red);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
 
-#transaction {
-  display: flex;
-  /* max-width: 40em; */
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 3px;
-  margin-bottom: 5px;
-  transition: 0.4s ease;
-}
+  #transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 3px;
+    margin-bottom: 5px;
+    transition: 0.4s ease;
+  }
 
-#transaction:hover {
-  background-color: var(--faint);
-}
+  #transaction:hover {
+    background-color: var(--faint);
+  }
 
-#transaction > div {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+  #transaction > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
-#transaction > div p {
-  font-size: 0.8rem;
-}
+  #transaction > div p {
+    font-size: 0.8rem;
+  }
 
-img {
-  width: 35px;
-  display: block;
-}
+  img {
+    width: 35px;
+    display: block;
+  }
 
-#not_found {
-  color: var(--red);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-}
+  #not_found {
+    color: var(--red);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
 
-#green {
-  color: var(--green);
-  font-weight: 700;
-}
+  #green {
+    color: var(--green);
+    font-weight: 700;
+  }
 
-#red {
-  color: var(--red);
-  font-weight: 700;
-}
+  #red {
+    color: var(--red);
+    font-weight: 700;
+  }
 </style>

@@ -52,119 +52,177 @@
       <div id="delete_account">
         <div>
           <h4>Delete Account</h4>
-          <p>When You delete your Account, you lose access to our services and we permanently delete your personal data.</p>
+          <p id="explain">
+            When You delete your Account, you lose access to our services and we permanently delete your personal data.
+          </p>
         </div>
-        <form action="delete">
+        <dialog ref="dialog">
+          <p>Are You Sure You want to Delete Your Account?</p>
+          <div>
+            <button>Delete</button>
+            <button @click.prevent="dialog.close()">Cancel</button>
+          </div>
+        </dialog>
+        <form>
           <button
             type="submit"
-            class="delete">
+            class="delete"
+            @click.prevent="dialog.showModal()">
             Delete Account
           </button>
-          <button type="submit">Learn More</button>
         </form>
+        <button
+          type="submit"
+          id="learn">
+          Learn More
+        </button>
       </div>
     </div>
   </section>
 </template>
 <script setup>
-import FormInput from '../../auth/FormInput.vue'
-import Select from './Select.vue'
-import { update_inputs, select_fields } from './account_inputs'
-import { reactive } from 'vue'
+  import FormInput from '../../auth/FormInput.vue'
+  import Select from './Select.vue'
+  import { update_inputs, select_fields } from './account_inputs'
+  import { reactive, ref } from 'vue'
 
-const basic_details = reactive({
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  dob: ''
-})
+  const dialog = ref()
 
-const more_details = reactive({
-  country: '',
-  state: '',
-  city: ''
-})
+  const basic_details = reactive({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    dob: ''
+  })
+
+  const more_details = reactive({
+    country: '',
+    state: '',
+    city: ''
+  })
 </script>
 <style scoped>
-#account_settings > div {
-  padding: 20px;
-  max-width: 600px;
-}
+  #account_settings {
+    position: relative;
+  }
 
-#account_settings h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
+  #account_settings > div {
+    padding: 20px;
+    max-width: 600px;
+  }
 
-#account_profile {
-  display: grid;
-  gap: 15px;
-}
+  #account_settings h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
 
-#account_profile > div {
-  display: flex;
-  align-self: center;
-  gap: 10px 30px;
-}
+  #account_profile {
+    display: grid;
+    gap: 15px;
+  }
 
-.submit {
-  background-color: var(--green);
-  color: var(--white);
-}
+  #account_profile > div {
+    display: flex;
+    align-self: center;
+    gap: 10px 30px;
+  }
 
-.delete {
-  background-color: var(--red);
-  color: var(--white);
-}
+  .submit {
+    background-color: var(--green);
+    color: var(--white);
+  }
 
-hr {
-  border-top: 1px solid var(--alternative);
-  margin: 20px;
-  outline: 0px;
-}
+  .delete {
+    background-color: var(--red);
+    color: var(--white);
+  }
 
-#account_profile > div img {
-  display: block;
-  width: 45px;
-}
+  hr {
+    border-top: 1px solid var(--alternative);
+    margin: 20px;
+    outline: 0px;
+  }
 
-#account_profile > div button,
-#delete_account button {
-  display: block;
-  white-space: nowrap;
-  align-self: center;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid var(--secondary);
-  cursor: pointer;
-}
+  #account_profile > div img {
+    display: block;
+    width: 45px;
+  }
 
-#update_data {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 30px;
-}
+  #account_profile > div button,
+  #delete_account button {
+    display: block;
+    white-space: nowrap;
+    align-self: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--secondary);
+    cursor: pointer;
+  }
 
-#update_data input[type='submit'] {
-  width: 120px;
-  color: var(--white);
-  margin-top: 10px;
-}
+  #update_data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 30px;
+  }
 
-#delete_account {
-  display: flex;
-  column-gap: 40px;
-  align-items: center;
-}
+  #update_data input[type='submit'] {
+    width: 120px;
+    color: var(--white);
+    margin-top: 10px;
+  }
 
-#delete_account p {
-  font-size: 0.7rem;
-}
+  #delete_account {
+    display: flex;
+    column-gap: 40px;
+    align-items: center;
+  }
 
-#delete_account form {
-  display: flex;
-  align-items: center;
-  column-gap: 30px;
-}
+  #explain {
+    font-size: 0.7rem;
+  }
+
+  #delete_account form {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+  }
+
+  dialog {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    padding: 1.2em;
+    width: 90%;
+    max-width: 30em;
+    border-radius: 0.5em;
+  }
+
+  dialog > p {
+    text-align: center;
+    font-size: 1.3em;
+    color: var(--accent);
+  }
+
+  dialog div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4em;
+    margin-top: 2em;
+  }
+
+  dialog div > button {
+    width: 8em;
+  }
+
+  dialog div :first-child {
+    background-color: var(--accent);
+    color: var(--white);
+  }
+
+  dialog::backdrop {
+    backdrop-filter: blur(10px);
+  }
 </style>

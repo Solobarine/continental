@@ -26,87 +26,87 @@
   </section>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import { login_inputs } from './inputs'
-import FormInput from './FormInput.vue'
-import { useUserStore } from '../../stores/UserStore'
+  import { reactive } from 'vue'
+  import { login_inputs } from './inputs'
+  import FormInput from './FormInput.vue'
+  import { useUserStore } from '../../stores/UserStore'
 
-const payload = reactive({
-  email: '',
-  password: ''
-})
+  const payload = reactive({
+    email: '',
+    password: ''
+  })
 
-const login = (e) => {
-  e.preventDefault()
-  return userStore.login(payload)
-}
+  const login = e => {
+    e.preventDefault()
+    return userStore.login(payload)
+  }
 
-const userStore = useUserStore()
-console.log(userStore)
+  const userStore = useUserStore()
+  console.log(userStore)
 </script>
 <style>
-#login_component {
-  background-image: url(/R.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#login_form {
-  margin: 40px auto;
-  max-width: 500px;
-  backdrop-filter: invert(90%);
-  border-radius: 20px;
-  border: 1px solid var(--primary);
-  display: grid;
-  gap: 15px;
-  padding: 20px;
-}
-
-#login_form label {
-  color: var(--faint);
-}
-
-#login_form h4 {
-  margin-top: 10px;
-  color: var(--faint);
-  grid-column: 1 / -1;
-}
-
-#login_form input[type='submit'] {
-  grid-column: 1/1;
-}
-
-#other_action {
-  text-align: center;
-  color: var(--primary);
-}
-
-#other_action a {
-  text-decoration: none;
-  transition: 0.4s ease;
-}
-
-#other_action a:hover {
-  color: var(--green);
-}
-
-#login_form span {
-  background-color: var(--white);
-  text-align: center;
-  font-weight: 600;
-}
-
-#error {
-  color: var(--red);
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 0;
-  background-color: var(--secondary);
-}
-
-@media screen and (max-width: 650px) {
-  #login_form {
-    margin: 40px 10px;
+  #login_component {
+    background-image: url(/R.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
   }
-}
+
+  #login_form {
+    margin: 40px auto;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    display: grid;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  #login_form label {
+    color: var(--text);
+  }
+
+  #login_form h4 {
+    margin-top: 10px;
+    color: var(--text);
+    grid-column: 1 / -1;
+  }
+
+  #login_form input[type='submit'] {
+    grid-column: 1/1;
+  }
+
+  #other_action {
+    text-align: center;
+    color: var(--primary);
+  }
+
+  #other_action a {
+    text-decoration: none;
+    transition: 0.4s ease;
+  }
+
+  #other_action a:hover {
+    color: var(--green);
+  }
+
+  #login_form span {
+    background-color: var(--white);
+    text-align: center;
+    font-weight: 600;
+  }
+
+  #error {
+    color: var(--red);
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+    background-color: var(--secondary);
+  }
+
+  @media screen and (max-width: 650px) {
+    #login_form {
+      margin: 40px 10px;
+    }
+  }
 </style>

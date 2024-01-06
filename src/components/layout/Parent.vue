@@ -12,28 +12,23 @@
 </template>
 
 <script setup>
-import Loading from '../reusables/Loading.vue'
-import RouteWindow from './RouteWindow.vue'
+  import Loading from '../reusables/Loading.vue'
+  import RouteWindow from './RouteWindow.vue'
 </script>
 <style>
-#parent {
-  position: relative;
-  display: flex;
-  gap: 20px;
-}
-
-.route {
-  flex-grow: 1;
-}
-
-@media screen and (max-width: 650px) {
   #parent {
-    padding-right: 20px;
-    padding-bottom: 20px;
+    position: relative;
+    display: flex;
+    gap: 20px;
   }
 
   .route {
-    padding-left: 55px;
+    flex-grow: 1;
   }
-}
+
+  @media screen and (max-width: 650px) {
+    #parent {
+      padding-bottom: 20px;
+    }
+  }
 </style>

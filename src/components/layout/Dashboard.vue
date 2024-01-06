@@ -75,7 +75,7 @@
           <input
             :disabled="!payload.payee_id"
             @click="
-              (e) => {
+              e => {
                 e.preventDefault()
                 console.log('click')
 
@@ -91,204 +91,210 @@
   </section>
 </template>
 <script setup>
-import ArrowUpRight from '../icons/ArrowUpRight.vue'
-import Card from '../reusables/Card.vue'
-import RecentTransactions from './RecentTransactions.vue'
-import Loading from '../reusables/Loading.vue'
-import { useUserStore } from '../../stores/UserStore'
-import { useTransferStore } from '../../stores/TransferStore'
-import { ref } from 'vue'
+  import ArrowUpRight from '../icons/ArrowUpRight.vue'
+  import Card from '../reusables/Card.vue'
+  import RecentTransactions from './RecentTransactions.vue'
+  import Loading from '../reusables/Loading.vue'
+  import { useUserStore } from '../../stores/UserStore'
+  import { useTransferStore } from '../../stores/TransferStore'
+  import { ref } from 'vue'
 
-const userStore = useUserStore()
-const user = userStore.user
+  const userStore = useUserStore()
+  const user = userStore.user
 
-const account_no = ref('')
-let error = ref('')
-let success = ref('')
-let value = ref(null)
+  const account_no = ref('')
+  let error = ref('')
+  let success = ref('')
+  let value = ref(null)
 
-const payload = {
-  amount: '',
-  account_number: '',
-  user_id: user.id,
-  payee_id: '',
-  description: ''
-}
+  const payload = {
+    amount: '',
+    account_number: '',
+    user_id: user.id,
+    payee_id: '',
+    description: ''
+  }
 
-const getReceiver = async () => {
-  if (payload.payee_id) payload.payee_id = ''
-  if (account_no.value.toString().length === 10) {
-    error.value = ''
-    success.value = {}
-    value = await useUserStore().getReceiver({
-      account_number: account_no.value
-    })
-    if (value.status === 200) {
-      success.value = value.data
-      payload.payee_id = value.data.id
-      payload.account_number = account_no.value
-      console.log(payload)
-    } else {
-      error.value = value.response.data.message
+  const getReceiver = async () => {
+    if (payload.payee_id) payload.payee_id = ''
+    if (account_no.value.toString().length === 10) {
+      error.value = ''
+      success.value = {}
+      value = await useUserStore().getReceiver({
+        account_number: account_no.value
+      })
+      if (value.status === 200) {
+        success.value = value.data
+        payload.payee_id = value.data.id
+        payload.account_number = account_no.value
+        console.log(payload)
+      } else {
+        error.value = value.response.data.message
+      }
     }
   }
-}
 </script>
 <style scoped>
-#dashboard {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-#dashboard .arrow {
-  padding: 10px;
-  width: 30px;
-  background-color: var(--primary);
-  border-radius: 8px;
-  fill: var(--white);
-}
-
-h1 {
-  margin: 20px 0;
-  font-size: 20px;
-}
-
-#details {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.account_details {
-  padding: 20px 10px;
-  width: 220px;
-  min-width: 80px;
-  /* border: 1px solid var(--text); */
-  border-radius: 15px;
-  background-color: var(--faint);
-}
-
-.account_details div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.account_details > p {
-  font-size: 18px;
-}
-
-#recents_section {
-  margin-top: 30px;
-}
-
-#recents_section h3 {
-  padding: 10px;
-}
-
-#recents {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-#recent_transfers,
-#recent_deposits {
-  padding: 10px;
-  padding-top: 25px;
-  min-width: 350px;
-  max-width: 400px;
-  min-height: 250px;
-  background-color: var(--faint);
-  border-radius: 20px;
-  flex-grow: 1;
-}
-
-#recent_transfers small,
-#recent_deposits small {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-#recent_transfers div,
-#recent_deposits div {
-  position: relative;
-  height: 100%;
-}
-
-#wallet {
-  padding: 10px;
-  padding-top: 30px;
-  flex-basis: 300px;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  background-color: var(--primary);
-}
-
-#card {
-  margin: auto;
-}
-
-.quick {
-  margin-top: 30px;
-  font-size: 25px;
-  color: var(--white);
-  margin-bottom: 15px;
-}
-
-form {
-  gap: 10px;
-  margin-top: 5px;
-}
-
-input {
-  display: block;
-  margin: auto;
-  margin-bottom: 20px;
-}
-
-form input:not([type='submit']) {
-  width: 250px;
-  display: block;
-  padding: 8px;
-  border: 1px solid var(--faint);
-  outline: none;
-}
-
-#error,
-#success {
-  text-align: center;
-  color: var(--faint);
-  margin-bottom: 15px;
-}
-
-input[type='submit']:disabled {
-  opacity: 0.7;
-}
-
-@media screen and (max-width: 750px) {
   #dashboard {
-    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  #dashboard .arrow {
+    padding: 10px;
+    width: 30px;
+    background-color: var(--primary);
+    border-radius: 8px;
+    fill: var(--white);
+  }
+
+  #dash {
+    flex-grow: 1;
+  }
+
+  h1 {
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  #details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
+    gap: 30px;
+  }
+
+  .account_details {
+    padding: 20px 10px;
+    min-width: 80px;
+    border-radius: 15px;
+    background-color: var(--faint);
+  }
+
+  .account_details div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .account_details div > p {
+    font-weight: 600;
+  }
+
+  .account_details > p {
+    font-size: 1.3em;
+  }
+
+  #recents_section {
+    margin-top: 30px;
+  }
+
+  #recents_section h3 {
+    padding: 10px;
   }
 
   #recents {
-    margin-top: 20px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  #recent_transfers,
+  #recent_deposits {
+    padding: 10px;
+    padding-top: 25px;
+    min-width: 350px;
+    max-width: 400px;
+    min-height: 250px;
+    background-color: var(--faint);
+    border-radius: 20px;
+    flex-grow: 1;
+  }
+
+  #recent_transfers small,
+  #recent_deposits small {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  #recent_transfers div,
+  #recent_deposits div {
+    position: relative;
+    height: 100%;
   }
 
   #wallet {
-    flex-grow: 1;
-    border-radius: 20px;
-    margin-bottom: 15px;
+    padding: 10px;
+    padding-top: 30px;
+    flex-basis: 300px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: var(--primary);
+  }
+
+  #card {
+    margin: auto;
   }
 
   .quick {
-    text-align: center;
+    margin-top: 30px;
+    font-size: 25px;
+    color: var(--white);
+    margin-bottom: 15px;
   }
-}
+
+  form {
+    gap: 10px;
+    margin-top: 5px;
+  }
+
+  input {
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  form input:not([type='submit']) {
+    width: 250px;
+    display: block;
+    padding: 8px;
+    border: 1px solid var(--faint);
+    outline: none;
+  }
+
+  #error,
+  #success {
+    text-align: center;
+    color: var(--faint);
+    margin-bottom: 15px;
+  }
+
+  input[type='submit']:disabled {
+    opacity: 0.7;
+  }
+
+  @media screen and (max-width: 750px) {
+    #dashboard {
+      flex-wrap: wrap;
+    }
+
+    #recents {
+      margin-top: 20px;
+    }
+
+    #wallet {
+      flex-grow: 1;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    .quick {
+      text-align: center;
+    }
+  }
 </style>

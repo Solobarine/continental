@@ -3,9 +3,8 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
 
 :root {
-  color-scheme: light dark;
   --white: rgba(255, 255, 255, 0.87);
-  --text: #444;
+  --text: #222;
   --primary: #410101;
   --secondary: #aaa;
   --faint: #eee;
@@ -16,7 +15,7 @@
 }
 
 title {
-  font-family: 'Lobster', serif;
+  font-family: 'Lobster', system-ui, -apple-system, BlinkMacSystemFont;
 }
 
 * {
@@ -37,7 +36,7 @@ title {
   fill: var(--accent);
 }
 
-input[type=submit] {
+input[type='submit'] {
   background-color: var(--green);
   padding: 10px 20px;
   border-radius: 10px;
