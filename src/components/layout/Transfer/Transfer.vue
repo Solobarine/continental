@@ -3,21 +3,27 @@
     <form id="transfer_form">
       <h3>Make a Transfer</h3>
       <small>{{ error }}</small>
-      <small
-        v-if="receiver"
-        id="receiver_name"
+      <small v-if="receiver" id="receiver_name"
         >{{ receiver.first_name }} {{ receiver.last_name }}</small
       >
+	  <FormKit type="text"  />
       <div class="payee_account_number">
         <label for="account_number">Enter Account Number</label>
         <input
-          type="number"
+          type="text"
           name="account_number"
-          autocomplete="account_number"
-          required
-          pattern="^[0-9]{10}$"
+          maxlength="10"
+          pattern="\\d{10}"
+          title="Account Number should be 10 numbers"
           v-model="payload.account_number"
-          @input="getReceiver" />
+          @input="getReceiver"
+        />
+        <small
+          :class="
+            payload.account_number.length === 10 ? 'number' : 'number error'
+          "
+          >Hint: Account Number should be 10 numbers</small
+        >
       </div>
       <FormInput
         :key="index"
@@ -29,40 +35,65 @@
         :pattern="input.pattern"
         :required="input.required"
         :error_message="input.error_message"
-        :payload="payload" />
+        :payload="payload"
+      />
+      <div class="description">
+        <label for="">Transfer Description</label>
+        <textarea
+          v-model="payload.description"
+          name="description"
+          id="description"
+          cols="30"
+          rows="10"
+          placeholder="Description..."
+        ></textarea>
+      </div>
       <input
-        @click="
-          (e) => {
-            e.preventDefault()
-            res = useTransferStore().makeTransfer(payload)
-          }
+        @click="toggle"
+        :disabled="
+          payload.payee_id === '' ||
+          (payload.user_id && payload.amount === undefined) ||
+          0
         "
-        :disabled="payload.payee_id === '' || (payload.user_id && payload.amount === undefined) || 0"
         type="submit"
-        value="Proceed" />
+        value="Proceed"
+      />
     </form>
+    <Summary
+      @cancelTransfer="data => handle(data)"
+      @makeTransfer="data => handle(data)"
+      :class="showSummary ? 'show' : 'hide'"
+      :payload="payload"
+      :receiver="receiver"
+    />
+    <div class="overlay" :class="showSummary ? 'show' : ''"></div>
   </section>
 </template>
 <script setup>
 import { reactive, ref } from 'vue'
+import Summary from './Summary.vue'
 import { useUserStore } from '../../../stores/UserStore'
 import { useTransferStore } from '../../../stores/TransferStore'
 import FormInput from '../../auth/FormInput.vue'
 import transfer_inputs from './transfer'
-
-const message = ref('')
 
 const payload = reactive({
   amount: undefined,
   account_number: '',
   description: '',
   payee_id: '',
-  user_id: useUserStore().user.id
+  user_id: useUserStore().user.id,
 })
 
 let receiver = ref('')
 let error = ref('')
 let value = ref('')
+
+const showSummary = ref(false)
+const toggle = () => {
+  showSummary.value = !showSummary.value
+  console.log(showSummary)
+}
 
 const getReceiver = async () => {
   console.log(payload.account_number)
@@ -72,38 +103,33 @@ const getReceiver = async () => {
   } else {
     error.value = ''
     value = await useUserStore().getReceiver({
-      account_number: payload.account_number
+      account_number: payload.account_number,
     })
     console.log(value)
     if (value.status === 200) {
       receiver.value = value.data
 
       payload.payee_id = value.data.id
-      console.log(payload)
     } else {
       error.value = value.response.data.message
     }
   }
 }
 
-const closeModal = () => {
-  message.value = ''
+const handle = data => {
+  showSummary.value = false
+  if (data) return makeTransfer(data)
 }
 
-const makeTransfer = async (e) => {
-  e.preventDefault()
-  res = useTransferStore().makeTransfer(payload)
-  console.log(res)
+const makeTransfer = data => {
+  console.log(data)
+  useTransferStore().makeTransfer(data)
 }
 </script>
 <style scoped>
 #transfer_section {
   position: relative;
 }
-/* 
-#transfer_form {
-  
-} */
 
 #transfer_form h3 {
   margin-top: 10px;
@@ -113,12 +139,8 @@ const makeTransfer = async (e) => {
 form {
   display: grid;
   gap: 15px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 400px;
-  margin: auto;
+  margin: 2em auto;
+  max-width: 35em;
   padding: 10px;
   background-color: var(--faint);
   border-radius: 10px;
@@ -143,7 +165,7 @@ option {
 form > small {
   grid-column: 1 / -1;
   grid-row: 6 / 7;
-  text-align: center;
+  font-size: 1.2em;
 }
 
 input[type='submit'] {
@@ -170,15 +192,66 @@ select:invalid[focused='true'] {
   grid-row: 3 / 6;
 }
 
-.payee_account_number > input {
+.payee_account_number > input,
+.payee_account_number > input:valid {
   width: 100%;
   padding: 6px;
-  border: 1px solid var(--text);
+  outline: none;
+  border: 1px solid var(--secondary);
   border-radius: 5px;
+}
+
+.payee_account_number > input:invalid {
+  border: 1px solid var(--red);
+}
+
+small.number {
+  display: none;
+}
+
+small.number.error {
+  display: block;
+  margin-top: 0.75em;
+  color: var(--red);
+}
+
+input:focus {
+  border: 1px solid var(--primary);
 }
 
 input[type='submit']:disabled {
   opacity: 0.7;
+}
+
+.description {
+  display: grid;
+  gap: 0.3em;
+}
+
+textarea {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  outline: none;
+  border: 1px solid var(--secondary);
+}
+
+textarea:focus {
+  border: 1px solid var(--primary);
+}
+.overlay {
+  transition: 0.5s ease-in;
+}
+
+.overlay.show {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  inset: 0 0 0 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  transition: 0.5s ease-in;
+  pointer-events: all;
+  z-index: 20;
 }
 
 @media screen and (max-width: 650px) {
