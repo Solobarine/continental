@@ -1,27 +1,25 @@
 <template>
   <section id="settings">
-    <div id="settings_menu">
-      <router-link
-        to="/settings/notifications"
-        class="setting_item">
-        <ion-icon name="notifications-outline"></ion-icon>
+    <div id="settings_menu" :class="settingsMenu ? 'show' : 'hide'">
+      <ion-icon
+        @click="toggleMenu"
+        :name="settingsMenu ? 'close-outline' : 'apps'"
+        class="menuToggle"
+        :class="settingsMenu ? 'hide' : 'show'"
+      ></ion-icon>
+      <router-link to="/settings/notifications" class="setting_item">
+        <ion-icon name="notifications"></ion-icon>
         <p>Notifications</p>
       </router-link>
-      <router-link
-        to="/settings/security"
-        class="setting_item">
+      <router-link to="/settings/security" class="setting_item">
         <ion-icon name="lock-closed"></ion-icon>
         <p>Security</p>
       </router-link>
-      <router-link
-        to="/settings/theme"
-        class="setting_item">
-        <ion-icon name="brush-outline"></ion-icon>
+      <router-link to="/settings/theme" class="setting_item">
+        <ion-icon name="color-palette-outline"></ion-icon>
         <p>Theme</p>
       </router-link>
-      <router-link
-        to="/settings/account"
-        class="setting_item">
+      <router-link to="/settings/account" class="setting_item">
         <ion-icon name="person-circle-outline"></ion-icon>
         <p>Account</p>
       </router-link>
@@ -29,7 +27,14 @@
     <router-view class="settings_content"></router-view>
   </section>
 </template>
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const settingsMenu = ref(false)
+const toggleMenu = () => {
+  settingsMenu.value = !settingsMenu.value
+}
+</script>
 <style scoped>
 #settings {
   display: flex;
@@ -37,11 +42,15 @@
 }
 
 #settings_menu {
-  width: 200px;
+  width: 15em;
   padding: 10px;
   padding-top: 40px;
   border-radius: 20px;
   background-color: var(--primary);
+}
+
+.menuToggle {
+  display: none;
 }
 
 .settings_content {
@@ -84,14 +93,44 @@
   }
 
   #settings_menu {
-    width: 100%;
-    position: sticky;
-    top: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    width: 7em;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    display: grid;
+    gap: 0.6em;
     height: auto;
     padding: 8px;
+    padding-top: 4em;
+    transition: 0.2s ease-in;
+  }
+
+  #settings_menu.show {
+    right: 0;
+  }
+
+  #settings_menu.hide {
+    right: -7em;
+  }
+
+  .menuToggle {
+    position: fixed;
+    display: block;
+    top: 1.5em;
+    color: var(--primary);
+    font-size: 3em;
+    visibility: visible;
+    margin: auto;
+  }
+
+  .menuToggle.show {
+    right: 0;
+  }
+
+  .menuToggle.hide {
+    color: var(--faint);
+    font-size: 3em;
+    right: 0.5em;
   }
 
   .setting_item {
@@ -106,7 +145,7 @@
 
   .setting_item ion-icon,
   .setting_item i {
-    font-size: 45px;
+    font-size: 2em;
   }
 }
 </style>

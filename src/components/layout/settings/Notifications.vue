@@ -101,18 +101,22 @@
   </section>
 </template>
 <script setup>
-import { reactive } from "vue";
-import ToggleOff from "../../icons/ToggleOff.vue";
-import ToggleOn from "../../icons/ToggleOn.vue";
+import { reactive } from 'vue'
+import ToggleOff from '../../icons/ToggleOff.vue'
+import ToggleOn from '../../icons/ToggleOn.vue'
 
-const email_on = reactive({ value: false });
-const activity_on = reactive({ value: false });
+const email_on = reactive({ value: false })
+const activity_on = reactive({ value: false })
 
-const toggle = (state) => {
-  state.value = !state.value;
-};
+const toggle = state => {
+  state.value = !state.value
+}
 </script>
 <style scoped>
+#notification {
+  padding: 0 0.4em;
+}
+
 #notification h3 {
   margin: 10px 0;
 }
