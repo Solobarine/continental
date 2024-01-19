@@ -1,76 +1,71 @@
 const update_inputs = [
-    {
-        label: 'First Name',
-        type: 'text',
-        name: 'first_name',
-        pattern: '^[A-Za-z]{3,16}$',
-        autocomplete: 'first_name',
-        required: true,
-        error_message: 'First Name should be 3-16 characters long with no special characters',
+  {
+    label: 'First Name',
+    type: 'text',
+    name: 'first_name',
+    validation: 'required|length:2,25',
+    autocomplete: 'first_name',
+    validation_messages: {
+      required: 'First Name is Required',
+      length: 'First Name should be between 2 and 25 Characters',
     },
-    {
-        label: 'Last Name',
-        type: 'text',
-        name: 'last_name',
-        pattern: '^[A-Za-z]{3,16}$',
-        autocomplete: 'last_name',
-        required: true,
-        error_message: 'Last Name should be 3-16 characters long with no special characters',
+  },
+  {
+    label: 'Last Name',
+    type: 'text',
+    name: 'last_name',
+    validation: 'required|length:2,25',
+    autocomplete: 'last_name',
+    validation_messages: {
+      required: 'Last Name is Required',
+      length: 'Last Name should be between 2 and 25 Characters',
     },
-    {
-        label: 'Enter Your Email',
-        type: 'email',
-        name: 'email',
-        pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
-        autocomplete: 'email',
-        required: true,
-        error_message: 'Enter a valid Email'
+  },
+  {
+    label: 'Enter Your Email',
+    type: 'email',
+    name: 'email',
+    validation: 'required|email',
+    autocomplete: 'email',
+  },
+  {
+    label: 'Enter Your Password',
+    type: 'password',
+    name: 'password',
+    validation: 'required|length:8,20',
+    autocomplete: 'password',
+  },
+  {
+    label: 'Date of Birth',
+    type: 'date',
+    name: 'date_of_birth',
+    validation: 'required|date|date_before:2006-01-01',
+    autocomplete: 'date_of_birth',
+    validation_messages: {
+      required: 'Date of Birth is Required',
+      date_before: 'You must be 18 years of Age',
     },
-    {
-        label: 'Enter Your Password',
-        type: 'password',
-        name: 'password',
-        pattern: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,20}$",
-        autocomplete: 'password',
-        required: true,
-        error_message: 'Password should be 8-20 characters long with at least 1 letter and 1 number'
-    },
-    {
-        label: 'Date of Birth',
-        type: 'date',
-        name: 'dob',
-        pattern: undefined,
-        autocomplete: 'dob',
-        required: true,
-        error_message: 'Enter a valid Date',
-    }
+  },
+  {
+    type: 'text',
+    label: 'Enter Your Country',
+    name: 'country',
+    validation: 'required',
+    autocomplete: 'country',
+  },
+  {
+    label: 'Enter Your State',
+    name: 'state',
+    validation: 'required',
+    autocomplete: 'state',
+  },
+  {
+    label: 'Enter Your City',
+    name: 'city',
+    validation: 'required',
+    autocomplete: 'city',
+  },
 ]
 
-const select_fields = [
-    {
-        label: 'Select Country',
-        name: 'country',
-        required: true,
-        pattern: '',
-        data: [],
-        autocomplete: 'country'
-    },
-    {
-        label: 'Select State',
-        name: 'state',
-        required: true,
-        pattern: '',
-        data: [],
-        autocomplete: 'state'
-    },
-    {
-        label: 'Select City',
-        name: 'city',
-        required: true,
-        pattern: '',
-        data: [],
-        autocomplete: 'city'
-    },
-]
+export { update_inputs }
 
-export { update_inputs, select_fields }

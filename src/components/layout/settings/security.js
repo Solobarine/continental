@@ -1,61 +1,59 @@
 const password_change = [
-    {
-        label: 'Old Password',
-        type: 'password',
-        name: 'old_password',
-        pattern: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,20}$",
-        autocomplete: 'old_password',
-        required: true,
-        error_message: 'Password should be 8-20 characters long with at least 1 letter and 1 number'
+  {
+    label: 'Old Password',
+    type: 'password',
+    name: 'old_password',
+    validation: 'required|length:8,20',
+    validation_messages: {
+      required: 'Old Password is Required',
+      length: 'Password should be between 8 and 20 Characters',
     },
-    {
-        label: 'New Password',
-        type: 'new_password',
-        name: 'new_password',
-        pattern: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,20}$",
-        autocomplete: 'new_password',
-        required: true,
-        error_message: 'Password should be 8-20 characters long with at least 1 letter and 1 number'
+  },
+  {
+    label: 'New Password',
+    type: 'password',
+    name: 'password',
+    validation: 'required|length:8,20',
+  },
+  {
+    label: 'Re-Type Password',
+    type: 'password',
+    name: 'confirm_password',
+    validation: 'required|confirm',
+    validation_messages: {
+      required: 'Confirm Password is Required',
+      confirm: 'Passwords does not Match',
     },
-    {
-        label: 'Re-Type New Password',
-        type: 'password',
-        name: 'confirm_new_password',
-        pattern: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,20}$",
-        autocomplete: 'new_password',
-        required: true,
-        error_message: 'Password should be 8-20 characters long with at least 1 letter and 1 number'
-    }
+  },
 ]
 
 const email_change = [
-    {
-        label: 'Enter Your Email',
-        type: 'email',
-        name: 'email',
-        pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
-        autocomplete: 'email',
-        required: true,
-        error_message: 'Enter a valid Email'
+  {
+    label: 'Enter Your Email',
+    type: 'email',
+    name: 'email',
+    validation: 'required|email',
+    autocomplete: 'email',
+    validation_messages: { required: 'Enter a valid Email' },
+  },
+  {
+    label: 'Enter Your New Email',
+    type: 'email',
+    name: 'new_email',
+    validation: 'required|email',
+    autocomplete: 'new_email',
+    validation_messages: {
+      required: 'Enter a valid Email',
+      email: 'Email must be a valid email',
     },
-    {
-        label: 'Enter Your New Email',
-        type: 'email',
-        name: 'new_email',
-        pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
-        autocomplete: 'new_email',
-        required: true,
-        error_message: 'Enter a valid Email'
-    },
-    {
-        label: 'Enter Password',
-        type: 'password',
-        name: 'password',
-        pattern: "^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,20}$",
-        autocomplete: 'password',
-        required: true,
-        error_message: 'Password should be 8-20 characters long with at least 1 letter and 1 number'
-    }
+  },
+  {
+    label: 'Enter Password',
+    type: 'password',
+    name: 'password',
+    validation: 'required|length:8,20',
+  },
 ]
 
 export { password_change, email_change }
+
