@@ -28,12 +28,11 @@ import RouteWindow from './RouteWindow.vue'
 
 @media screen and (max-width: 650px) {
   #parent {
-    padding-right: 20px;
     padding-bottom: 20px;
   }
 
   .route {
-    padding-left: 55px;
+    padding: 2em 0.1em;
   }
 }
 </style>

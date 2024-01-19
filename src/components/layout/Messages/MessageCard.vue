@@ -11,7 +11,9 @@
         />
         <p id="name">{{ props.sender }}</p>
       </div>
-      <strong id="date">{{ convertDate(props.date) }}</strong>
+      <strong id="date">{{
+        formatDistance(props.date, new Date(), { addSuffix: true })
+      }}</strong>
     </div>
     <div id="title_section">
       <ion-icon
@@ -31,10 +33,10 @@
   </div>
 </template>
 <script setup>
-import { useMessageStore } from "../../../stores/MessageStore";
-import convertDate from "../../../utils/convertDate";
-import { starred, opened } from "../../../utils/messageHelpers";
-const messageStore = useMessageStore();
+import convertDate from '../../../utils/convertDate'
+import { useMessageStore } from '../../../stores/MessageStore'
+import { formatDistance } from 'date-fns'
+const messageStore = useMessageStore()
 
 const props = defineProps({
   index: Number,
@@ -47,7 +49,7 @@ const props = defineProps({
   opened: Number,
   starred: Number,
   archived: Number,
-});
+})
 </script>
 <style scoped>
 .message_card {
@@ -84,7 +86,7 @@ ion-icon {
   font-size: 18px;
 }
 
-.star[name="star"] {
+.star[name='star'] {
   color: gold;
 }
 

@@ -1,41 +1,40 @@
 <template>
   <div v-if="deposits.length !== 0">
-    <div
-      :key="deposit.id"
-      v-for="deposit in deposits"
-      class="deposit_log">
+    <div :key="deposit.id" v-for="deposit in deposits" class="deposit_log">
       <div>
-        <img
-          src="/src/assets/male_user.png"
-          alt="deposit.user.first_name" />
+        <img src="/src/assets/male_user.png" alt="deposit.user.first_name" />
         <div>
-          <small class="name">{{ useUserStore().user.first_name }}</small>
-          <small class="date">{{ convertDate(deposit.created_at) }}</small>
+          <small class="name"
+            >{{ useUserStore().user.first_name }}
+            {{ useUserStore().user.last_name }}</small
+          >
+          <small class="date">{{
+            formatDistance(deposit.created_at, new Date(), { addSuffix: true })
+          }}</small>
         </div>
       </div>
       <small
         :class="
-          deposit.status === 'completed' ? 'status_completed' : deposit_status === 'failed' ? 'status_failed' : 'status_pending'
+          deposit.status === 'completed'
+            ? 'status_completed'
+            : deposit_status === 'failed'
+            ? 'status_failed'
+            : 'status_pending'
         "
         >{{ deposit.status }}</small
       >
       <small class="amount">${{ deposit.amount }}</small>
     </div>
   </div>
-  <p
-    v-else
-    id="not_found">
-    No Deposits Found
-  </p>
+  <p v-else id="not_found">No Deposits Found</p>
 </template>
 <script setup>
 import { useDepositStore } from '../../stores/DepositStore'
 import { useUserStore } from '../../stores/UserStore'
-import convertDate from '../../utils/convertDate'
+import { formatDistance } from 'date-fns'
 
 await useDepositStore().getDeposits()
 const deposits = useDepositStore().deposits
-console.log(deposits.length)
 </script>
 <style scoped>
 .deposit_log {

@@ -2,64 +2,56 @@
   <menu :class="is_collapsed.value ? 'collapse' : 'expand'">
     <div id="menu_nav">
       <angle-double
-        @click="toggle_menu(is_collapsed)"
+        @click="
+          () => {
+            toggle_menu(is_collapsed)
+          }
+        "
         class="menu_toggle"
-        :class="!is_collapsed.value && 'rotate'" />
-      <div id="menu_items">
-        <router-link
-          to="/dashboard"
-          class="menu_links">
+        :class="!is_collapsed.value && 'rotate'"
+      />
+      <div id="menu_items" @click="toggleCollapse" @blur="toggleCollapse">
+        <router-link to="/dashboard" class="menu_links">
           <ion-icon
             name="home-outline"
-            :class="is_collapsed.value ? 'center' : 'left'"></ion-icon>
-          <!-- <i
-            class="fi fi-rr-home"
             :class="is_collapsed.value ? 'center' : 'left'"
-          /> -->
+          ></ion-icon>
           <p :class="is_collapsed.value ? 'hide' : 'show'">Dashboard</p>
         </router-link>
-        <router-link
-          to="/profile"
-          class="menu_links">
+        <router-link to="/profile" class="menu_links">
           <ion-icon
             name="person-outline"
-            :class="is_collapsed.value ? 'center' : 'left'"></ion-icon>
+            :class="is_collapsed.value ? 'center' : 'left'"
+          ></ion-icon>
           <p :class="is_collapsed.value ? 'hide' : 'show'">Profile</p>
         </router-link>
-        <router-link
-          to="/messages"
-          class="menu_links">
+        <router-link to="/messages" class="menu_links">
           <envelope :class="is_collapsed.value ? 'center' : 'left'" />
           <p :class="is_collapsed.value ? 'hide' : 'show'">Messages</p>
         </router-link>
-        <router-link
-          to="/deposit"
-          class="menu_links">
+        <router-link to="/deposit" class="menu_links">
           <deposit :class="is_collapsed.value ? 'center' : 'left'" />
           <p :class="is_collapsed.value ? 'hide' : 'show'">Deposit</p>
         </router-link>
-        <router-link
-          to="/transfer"
-          class="menu_links">
+        <router-link to="/transfer" class="menu_links">
           <ion-icon
             :class="is_collapsed.value ? 'center' : 'left'"
-            name="card-outline"></ion-icon>
+            name="card-outline"
+          ></ion-icon>
           <p :class="is_collapsed.value ? 'hide' : 'show'">Transfer</p>
         </router-link>
-        <router-link
-          to="/transactions"
-          class="menu_links">
+        <router-link to="/transactions" class="menu_links">
           <ion-icon
             name="cash-outline"
-            :class="is_collapsed.value ? 'center' : 'left'"></ion-icon>
+            :class="is_collapsed.value ? 'center' : 'left'"
+          ></ion-icon>
           <p :class="is_collapsed.value ? 'hide' : 'show'">Transactions</p>
         </router-link>
-        <router-link
-          to="/settings/notifications"
-          class="menu_links">
+        <router-link to="/settings/notifications" class="menu_links">
           <ion-icon
             name="settings-outline"
-            :class="is_collapsed.value ? 'center' : 'left'"></ion-icon>
+            :class="is_collapsed.value ? 'center' : 'left'"
+          ></ion-icon>
           <p :class="is_collapsed.value ? 'hide' : 'show'">Settings</p>
         </router-link>
       </div>
@@ -67,18 +59,22 @@
     <div id="theme">
       <ion-icon
         :class="is_collapsed.value ? 'hide' : 'show'"
-        name="sunny-outline"></ion-icon>
+        name="sunny-outline"
+      ></ion-icon>
       <toggle-off
         v-if="is_light_theme.value"
         :class="is_collapsed.value ? 'center' : 'left'"
-        @click="change_theme" />
+        @click="change_theme"
+      />
       <toggle-on
         v-else
         :class="is_collapsed.value ? 'center' : 'left'"
-        @click="change_theme" />
+        @click="change_theme"
+      />
       <ion-icon
         :class="is_collapsed.value ? 'hide' : 'show'"
-        name="moon-outline"></ion-icon>
+        name="moon-outline"
+      ></ion-icon>
     </div>
   </menu>
 </template>
@@ -97,6 +93,12 @@ const change_theme = () => {
   is_light_theme.value = !is_light_theme.value
   console.log(is_light_theme)
 }
+
+const toggleCollapse = () => {
+  if (window.screen.width <= 650) {
+    is_collapsed.value = !is_collapsed.value
+  }
+}
 </script>
 <style scoped>
 menu {
@@ -105,12 +107,14 @@ menu {
   background-color: var(--primary);
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   justify-content: space-between;
   min-height: 90vh;
 }
 
 .menu_toggle {
   rotate: 360deg;
+  font-size: 2em;
   display: block;
   margin: auto;
   margin-bottom: 40px;
@@ -231,16 +235,25 @@ svg {
   menu {
     position: fixed;
     z-index: 100;
+    height: calc(100% - 60px);
+  }
+
+  .menu_toggle {
+    position: absolute;
+    fill: var(--primary);
+    top: 0.3em;
+    right: -1em;
+  }
+
+  .menu_toggle.rotate {
+    position: static;
+    fill: var(--white);
   }
 
   .collapse {
-    margin-left: 0;
+    margin-left: -42px;
     width: 40px;
     border-radius: 0;
-  }
-
-  .menu_links {
-    padding: 8px 5px;
   }
 }
 </style>

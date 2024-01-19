@@ -1,46 +1,37 @@
 <template>
   <div v-if="transfers.length !== 0">
-    <div
-      :key="transfer.id"
-      v-for="transfer in transfers"
-      id="transaction">
+    <div :key="transfer.id" v-for="transfer in transfers" id="transaction">
       <div>
-        <img
-          src="/src/assets/female_user.png"
-          alt="transfer.user.first_name" />
+        <img src="/src/assets/female_user.png" alt="transfer.user.first_name" />
         <div>
-          <p>{{ transfer.first_name }}</p>
-          <small>{{ convertDate(transfer.created_at) }}</small>
+          <p>{{ transfer.first_name }} {{ transfer.last_name }}</p>
+          <small>{{
+            formatDistance(transfer.created_at, new Date(), { addSuffix: true })
+          }}</small>
         </div>
       </div>
       <small
         :class="
-          transfer.status === 'completed' ? 'status_completed' : transfer.status === 'failed' ? 'status_failed' : 'status_pending'
+          transfer.status === 'completed'
+            ? 'status_completed'
+            : transfer.status === 'failed'
+            ? 'status_failed'
+            : 'status_pending'
         "
         >{{ transfer.status }}</small
       >
-      <small
-        id="green"
-        v-if="transfer.payee_id === user_id"
+      <small id="green" v-if="transfer.payee_id === user_id"
         >${{ transfer.amount }}</small
       >
-      <small
-        v-else
-        id="red"
-        >-${{ transfer.amount }}</small
-      >
+      <small v-else id="red">-${{ transfer.amount }}</small>
     </div>
   </div>
-  <p
-    v-else
-    id="not_found">
-    No Transfers Found
-  </p>
+  <p v-else id="not_found">No Transfers Found</p>
 </template>
 <script setup>
 import { useTransferStore } from '../../stores/TransferStore'
 import { useUserStore } from '../../stores/UserStore'
-import convertDate from '../../utils/convertDate'
+import { formatDistance } from 'date-fns'
 
 await useTransferStore().getTransfers()
 const transfers = useTransferStore().transfers
@@ -50,7 +41,7 @@ const props = defineProps({
   name: String,
   status: String,
   date: Date,
-  amount: Number
+  amount: Number,
 })
 </script>
 <style scoped>

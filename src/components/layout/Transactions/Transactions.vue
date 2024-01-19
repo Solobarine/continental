@@ -55,7 +55,6 @@ import Transfer from '../../reusables/Transfer.vue'
 }
 
 h3 {
-  font-family: 'Lobster', serif;
   padding: 10px 0;
 }
 

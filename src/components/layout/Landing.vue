@@ -12,14 +12,13 @@
         Simple way to manage <br />
         your money
       </h1>
-      <sub>Welcome to the Continental, the next generation Bank for all your needs.</sub>
+      <sub
+        >Welcome to the Continental, the next generation Bank for all your
+        needs.</sub
+      >
       <sub>Enjoy seamless cash transactions and shorter waiting times</sub>
 
-      <router-link
-        id="started"
-        to="/register"
-        >Get Started</router-link
-      >
+      <router-link id="started" to="/register">Get Started</router-link>
       <div id="statistics">
         <div>
           <p>10M+</p>
@@ -35,21 +34,11 @@
         </div>
       </div>
       <div id="sponsors">
-        <img
-          src="/src/assets/sponsors/barclays.svg"
-          alt="Barclays" />
-        <img
-          src="/src/assets/sponsors/capital-one.svg"
-          alt="Capital One" />
-        <img
-          src="/src/assets/sponsors/coinbase.svg"
-          alt="CoinBase" />
-        <img
-          src="/src/assets/sponsors/chase.svg"
-          alt="Chase" />
-        <img
-          src="/src/assets/sponsors/champion.svg"
-          alt="Champion" />
+        <img src="/src/assets/sponsors/barclays.svg" alt="Barclays" />
+        <img src="/src/assets/sponsors/capital-one.svg" alt="Capital One" />
+        <img src="/src/assets/sponsors/coinbase.svg" alt="CoinBase" />
+        <img src="/src/assets/sponsors/chase.svg" alt="Chase" />
+        <img src="/src/assets/sponsors/champion.svg" alt="Champion" />
       </div>
     </div>
   </div>
@@ -58,11 +47,13 @@
 <style scoped>
 #landing {
   display: flex;
-  gap: 20px;
-  background-image: url('/landing.png'), url('/R.jpg');
-  background-repeat: no-repeat, no-repeat;
-  background-size: contain, cover;
-  background-position-x: right, 50%;
+  height: calc(100vh - 60px);
+  flex-wrap: wrap-reverse;
+  gap: 0 1em;
+  padding: 0em 0.5em;
+  background-repeat: repeat;
+  background-size: contain;
+  background-position-x: center right;
 }
 
 h1 {
@@ -76,9 +67,13 @@ sub {
   margin-bottom: 10px;
   color: black;
 }
+
 .socials {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  flex-basis: 20px;
+  flex-grow: 1;
+  align-self: center;
   align-items: center;
   justify-content: center;
   gap: 10px;
@@ -86,11 +81,11 @@ sub {
 }
 .socials ion-icon {
   color: var(--primary);
-  font-size: 18px;
+  font-size: 2em;
 }
 
 #landing_details {
-  flex-grow: 1;
+  flex-grow: 9999999;
 }
 
 #started {
@@ -138,29 +133,21 @@ sub {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  column-gap: 1em;
   max-width: 800px;
-  gap: 30px;
   justify-content: space-between;
   margin-top: 20px;
 }
 
 #sponsors img {
-  height: 20px;
-  margin: auto;
-}
-
-#sponsors img:nth-child(2) {
-  height: 40px;
+  height: 4em;
+  aspect-ratio: 16 / 9;
 }
 
 @media screen and (max-width: 900px) {
   #landing {
-    background-image: url('/R.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: 50%;
+    background-image: none;
   }
-
   h1 {
     font-size: 25px;
     margin-bottom: 35px;
@@ -168,6 +155,10 @@ sub {
 
   #started {
     margin: 20px 0;
+  }
+
+  #landing_details {
+    margin-top: 10em;
   }
 }
 </style>
