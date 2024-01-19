@@ -1,6 +1,12 @@
 <template>
   <section id="messages_section">
-    <div id="messages_menu">
+    <div id="messages_menu" :class="showMessageMenu ? 'show' : 'hide'">
+      <ion-icon
+        @click="toggle"
+        class="message_toggle"
+        :class="showMessageMenu ? 'hide' : 'show'"
+        :name="showMessageMenu ? 'close-outline' : 'mail'"
+      ></ion-icon>
       <div class="message_options">
         <ion-icon name="mail-outline"></ion-icon>
         <p>Inbox</p>
@@ -22,7 +28,7 @@
         <p>Trash</p>
       </div>
     </div>
-    <div id="messages">
+    <div class="messages">
       <Suspense>
         <template #default>
           <GetMessages />
@@ -35,9 +41,15 @@
   </section>
 </template>
 <script setup>
+import { ref } from 'vue'
 import ImportantMail from '../../icons/ImportantMail.vue'
 import Loading from '../../reusables/Loading.vue'
 import GetMessages from './GetMessages.vue'
+
+const showMessageMenu = ref(false)
+const toggle = () => {
+  showMessageMenu.value = !showMessageMenu.value
+}
 </script>
 <style>
 #messages_section {
@@ -47,12 +59,16 @@ import GetMessages from './GetMessages.vue'
 }
 
 #messages_menu {
-  width: 20rem;
+  width: 15rem;
   height: 90vh;
-  border-radius: 15px;
+  border-radius: 1em 1em 0 0;
   padding: 10px 5px;
   padding-top: 40px;
   background-color: var(--primary);
+}
+
+.message_toggle {
+  display: none;
 }
 
 .message_options {
@@ -92,6 +108,7 @@ import GetMessages from './GetMessages.vue'
 
 .messages {
   flex-grow: 1;
+  min-height: calc(100vh - 60px);
 }
 
 @media screen and (max-width: 650px) {
@@ -99,20 +116,44 @@ import GetMessages from './GetMessages.vue'
     flex-direction: column;
   }
 
+  .message_toggle {
+    position: fixed;
+    display: block;
+    top: 60px;
+    font-size: 3em;
+    color: var(--faint);
+    right: 0;
+  }
+
+  .message_toggle.show {
+    color: var(--primary);
+    visibility: visible;
+  }
+
+  .message_toggle.hide {
+    visibility: visible;
+    right: 0.5em;
+  }
+
   #messages_menu {
-    position: sticky;
-    top: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    position: fixed;
+    transition: 0.5s ease-in;
+    top: 60px;
+    padding: 3em 0;
+    display: grid;
+    gap: 0.5em;
+    border-radius: 0;
     height: auto;
     width: auto;
     z-index: 10;
   }
 
-  #messages_menu {
-    padding: 8px;
+  #messages_menu.hide {
+    right: -15em;
+  }
+
+  #messages_menu.show {
+    right: 0;
   }
 
   .message_options {
