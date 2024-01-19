@@ -3,63 +3,42 @@
     <div>
       <h3>Update Details</h3>
       <div id="account_profile">
-        <h4>My Profile</h4>
+        <img src="/src/assets/male_user.png" alt="user" />
         <div>
-          <img
-            src="/src/assets/male_user.png"
-            alt="user" />
-          <button
-            type="submit"
-            class="submit">
-            Upload Now
-          </button>
-          <button
-            type="submit"
-            class="delete">
-            Delete
-          </button>
+          <button type="submit" class="change">Change Profile</button>
+          <button type="submit" class="upload">Upload</button>
         </div>
       </div>
       <hr />
-      <form
-        action="put"
-        id="update_data">
-        <FormInput
-          :key="index"
-          v-for="(input, index) in update_inputs"
-          :type="input.type"
-          :label="input.label"
-          :name="input.name"
-          :autocomplete="input.autocomplete"
-          :pattern="input.pattern"
-          :required="input.required"
-          :error_message="input.error_message"
-          :payload="basic_details" />
-        <Select
-          v-for="(input, index) in select_fields"
-          :key="index"
-          :label="input.label"
-          :name="input.name"
-          :pattern="input.pattern"
-          :autocomplete="input.autocomplete"
-          :required="input.required"
-          :payload="more_details" />
-        <input
-          type="submit"
-          value="Update" />
-      </form>
+      <FormKit
+        type="form"
+        id="update_form"
+        submit-label="Update Profile"
+        @submit="update"
+      >
+        <FormKit
+          v-for="(field, i) in update_inputs"
+          :key="i"
+          :type="field.type"
+          :validation="field.validation"
+          :placeholder="field.label"
+          :name="field.name"
+          :validation-messages="
+            field.validation_messages ? field.validation_messages : null
+          "
+        />
+      </FormKit>
       <hr />
       <div id="delete_account">
         <div>
           <h4>Delete Account</h4>
-          <p>When You delete your Account, you lose access to our services and we permanently delete your personal data.</p>
+          <p>
+            When You delete your Account, you lose access to our services and we
+            permanently delete your personal data.
+          </p>
         </div>
         <form action="delete">
-          <button
-            type="submit"
-            class="delete">
-            Delete Account
-          </button>
+          <button type="submit" class="delete">Delete Account</button>
           <button type="submit">Learn More</button>
         </form>
       </div>
@@ -67,9 +46,7 @@
   </section>
 </template>
 <script setup>
-import FormInput from '../../auth/FormInput.vue'
-import Select from './Select.vue'
-import { update_inputs, select_fields } from './account_inputs'
+import { update_inputs } from './account_inputs'
 import { reactive } from 'vue'
 
 const basic_details = reactive({
@@ -77,19 +54,21 @@ const basic_details = reactive({
   last_name: '',
   email: '',
   password: '',
-  dob: ''
-})
-
-const more_details = reactive({
+  dob: '',
   country: '',
   state: '',
-  city: ''
+  city: '',
 })
+
+const update = data => {
+  console.log(data)
+}
 </script>
 <style scoped>
 #account_settings > div {
-  padding: 20px;
-  max-width: 600px;
+  padding: 0 1em;
+  max-width: 45em;
+  width: 100%;
 }
 
 #account_settings h3 {
@@ -108,19 +87,24 @@ const more_details = reactive({
   gap: 10px 30px;
 }
 
-.submit {
+.change {
   background-color: var(--green);
+  color: var(--white);
+}
+
+.upload {
+  background-color: var(--primary);
   color: var(--white);
 }
 
 .delete {
   background-color: var(--red);
-  color: var(--white);
+  color: var(--faint);
 }
 
 hr {
-  border-top: 1px solid var(--alternative);
-  margin: 20px;
+  border-top: 1px solid var(--secondary);
+  margin: 1.5em 0.75em;
   outline: 0px;
 }
 
@@ -142,24 +126,27 @@ hr {
 
 #update_data {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(12em, 1fr));
   gap: 10px 30px;
 }
 
-#update_data input[type='submit'] {
-  width: 120px;
-  color: var(--white);
-  margin-top: 10px;
+.formkit-wrapper,
+.formkit-inner {
+  display: grid;
+  gap: 0.4em;
 }
 
 #delete_account {
   display: flex;
-  column-gap: 40px;
+  gap: 1em 2em;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 #delete_account p {
   font-size: 0.7rem;
+  max-width: 20em;
+  width: 100%;
 }
 
 #delete_account form {

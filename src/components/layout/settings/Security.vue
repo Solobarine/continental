@@ -2,76 +2,63 @@
   <section id="security">
     <div id="new_password">
       <h3>Change Password</h3>
-      <form action="post">
-        <FormInput
-          :key="index"
-          v-for="(input, index) in password_change"
-          :type="input.type"
-          :label="input.label"
-          :name="input.name"
-          :autocomplete="input.autocomplete"
-          :pattern="input.pattern"
-          :required="input.required"
-          :error_message="input.error_message"
-          :payload="password_payload"
+      <FormKit type="form" submit-label="Change Password">
+        <FormKit
+          v-for="(field, i) in password_change"
+          :key="i"
+          :type="field.type"
+          :name="field.name"
+          :validation="field.validation"
+          :validation-messages="field.validation_messages"
+          :placeholder="field.label"
         />
-        <input type="submit" value="Change" />
-      </form>
+      </FormKit>
     </div>
+    <hr />
     <div id="new_email">
       <h3>Change Email</h3>
-      <form action="post">
-        <FormInput
-          :key="index"
-          v-for="(input, index) in email_change"
-          :type="input.type"
-          :label="input.label"
-          :name="input.name"
-          :autocomplete="input.autocomplete"
-          :pattern="input.pattern"
-          :required="input.required"
-          :error_message="input.error_message"
-          :payload="email_payload"
+      <FormKit type="form" submit-label="Change Email">
+        <FormKit
+          v-for="(field, i) in email_change"
+          :key="i"
+          :type="field.type"
+          :name="field.name"
+          :validation="field.validation"
+          :validation-messages="field.validation_messages"
+          :placeholder="field.label"
         />
-        <input type="submit" value="Change" />
-      </form>
+      </FormKit>
     </div>
   </section>
 </template>
 <script setup>
-import { reactive } from "vue";
-import FormInput from "../../auth/FormInput.vue";
-import { password_change, email_change } from "./security";
+import { reactive } from 'vue'
+import { password_change, email_change } from './security'
 
-const password_payload = reactive({
-  old_password: "",
-  new_password: "",
-  confirm_new_password: "",
-});
+const changePassword = data => {}
 
-const email_payload = reactive({
-  old_email: "",
-  new_email: "",
-  password: "",
-});
+const changeEmail = data => {}
 </script>
 <style scoped>
+#security {
+  padding: 1em 0;
+}
+
 #security > div {
-  max-width: 400px;
-  margin-bottom: 40px;
+  max-width: 30em;
 }
 
 h3 {
   margin-bottom: 10px;
 }
 
-form {
-  display: grid;
-  gap: 15px;
+hr {
+  margin: 2em 0;
+  border-top: 2px solid var(--secondary);
 }
 
-input[type="submit"] {
-  width: 150px;
-  margin-top: 20px;
+form {
+  display: grid;
+  gap: 1em;
 }
 </style>
