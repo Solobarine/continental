@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lobster&family=Poppins:wght@400;900&family=Sacramento&display=swap');
 
 @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@200;300;400;500;600&family=Lobster&family=Poppins:ital,wght@0,100;0,200;0,400;0,800;1,400;1,800&family=Sacramento&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,500;1,700&display=swap');
 
 :root {
   color-scheme: light dark;
@@ -12,6 +13,7 @@
   --accent: #e0071c;
   --red: #f00;
   --green: #0a0;
+  --box-shadow: 15px 7px 22px -3px rgba(189, 187, 189, 1);
   background-color: var(--white);
 }
 
@@ -37,11 +39,34 @@ title {
   fill: var(--accent);
 }
 
-input[type=submit] {
-  background-color: var(--green);
-  padding: 10px 20px;
-  border-radius: 10px;
+.formkit-inner {
+  display: grid;
+  gap: 0.3em;
+}
+
+.formkit-inner :is(input, select, textarea) {
+  padding: 0.75em;
+  outline: none;
+  border: 1px solid var(--secondary);
+  border-radius: 0.5em;
+}
+
+.formkit-inner :is(input, select, textarea):focus {
+  border: 1px solid var(--primary);
+}
+
+.formkit-wrapper button[type='submit'] {
+  background-color: var(--primary);
+  color: var(--faint);
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
+  outline: none;
   border: none;
-  color: var(--white);
-  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+#update_form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  gap: 1em 2em;
 }
