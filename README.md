@@ -2,7 +2,10 @@
 
 # Continental
 
-<img src='./public/continental_landing.png' />
+<img src='./public/continental_dashboard.png' />
+<img src="./public/continental_deposit.png" />
+<img src="./public/continental_messages.png" />
+<img src="./public/continental_settings.png" />
 
 ## Overview
 
@@ -10,17 +13,19 @@ Welcome to the Continental! This application is built with Vue.js and provides u
 
 ## 📃 Features
 
-1. **Deposit Money**: Users can deposit funds into their accounts securely using the app. The deposit feature ensures the accuracy of entered amounts and provides real-time updates on the account balance.
+1. **User Authentication**: Continental also prioritizes robust user authentication through the implementation of JSON Web Tokens (JWT). This adds an extra layer of security to the application. Upon successful login, users are issued a JWT, which serves as a digitally signed and encrypted token
 
-2. **Transfer Money**: Continental allows users to transfer money between accounts. With a user-friendly interface, transferring funds is a breeze. The app ensures that the sender has sufficient funds and provides instant confirmation of successful transfers.
+2. **Deposit Money**: Users can deposit funds into their accounts securely using the app. The deposit feature ensures the accuracy of entered amounts and provides real-time updates on the account balance.
 
-3. **Account Number**: Users are given a unique Account Number on successful registration
+3. **Transfer Money**: Continental allows users to transfer money between accounts. With a user-friendly interface, transferring funds is a breeze. The app ensures that the sender has sufficient funds and provides instant confirmation of successful transfers.
 
-4. **Form Validation**: Input forms for deposit and transfer are equipped with robust validation mechanisms. Users receive immediate feedback and error messages if they attempt to submit incomplete or incorrect information.
+4. **Account Number**: Users are given a unique Account Number on successful registration
 
-5. **Routing**: The app utilizes Vue Router to manage navigation seamlessly. Users can move between different sections of the app without page reloads, providing a smooth and responsive experience.
+5. **Form Validation**: Input forms for deposit and transfer are equipped with robust validation mechanisms. Users receive immediate feedback and error messages if they attempt to submit incomplete or incorrect information.
 
-6. **Route Protection**: To ensure the security of user data, certain routes are protected. Users need to authenticate or meet specific criteria to access sensitive sections, such as the transfer page. Route protection is implemented using Pinia for efficient state management.
+6. **Routing**: The app utilizes Vue Router to manage navigation seamlessly. Users can move between different sections of the app without page reloads, providing a smooth and responsive experience.
+
+7. **Route Protection**: To ensure the security of user data, certain routes are protected. Users need to authenticate or meet specific criteria to access sensitive sections, such as the transfer page. Route protection is implemented using Pinia for efficient state management.
 
 ## 🌍 Backend
 
