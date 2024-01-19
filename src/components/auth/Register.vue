@@ -1,87 +1,101 @@
 <template lang="">
   <section id="register_component">
-    <!-- <div></div> -->
-    <form id="register_form">
-      <h4>Create an Account</h4>
-      <FormInput
-        v-for="(input, index) in register_inputs"
-        :key="index"
-        :label="input.label"
-        :type="input.type"
-        :name="input.name"
-        :pattern="input.pattern"
-        :autocomplete="input.autocomplete"
-        :required="input.required"
-        :error_message="input.error_message"
-        :payload="payload" />
-      <input
-        type="submit"
-        value="Register"
-        @click="register" />
-      <p id="other_action">Already a User, <router-link to="/login">Login</router-link></p>
-    </form>
+    <div id="r-background"></div>
+
+    <div id="r-content">
+      <FormKit
+        type="form"
+        submit-label="Register"
+        :value="{
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          confirm_password: '',
+        }"
+        @submit="register"
+        id="register"
+      >
+        <h4>Create an Account</h4>
+        <FormKit
+          type="text"
+          name="first_name"
+          placeholder="Enter your First Name"
+          validation="required|length:1,25"
+          :validation-messages="{
+            required: 'First Name is Required',
+            length: 'First Name should be between 1 and 25 Characters',
+          }"
+        />
+        <FormKit
+          type="text"
+          name="last_name"
+          placeholder="Enter your Last Name"
+          validation="required|length:1,25"
+          :validation-messages="{
+            required: 'Last Name is Required',
+            length: 'Last Name should be between 1 and 25 Characters',
+          }"
+        />
+        <FormKit
+          type="email"
+          name="email"
+          placeholder="Enter your Email"
+          validation="required|email"
+        />
+        <FormKit
+          type="password"
+          name="password"
+          placeholder="Enter your Password"
+          validation="required|length:8,20"
+        />
+        <FormKit
+          type="password"
+          name="confirm_password"
+          placeholder="Repeat your Password"
+          validation="required|confirm"
+          :validation-messages="{
+            required: 'Confirm Password is Required',
+            confirm: 'Confirm Password does not Match',
+          }"
+        />
+      </FormKit>
+      <p id="other_action">
+        Already a User, <router-link to="/login">Login</router-link>
+      </p>
+    </div>
   </section>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import FormInput from './FormInput.vue'
-import { register_inputs } from './inputs'
 import { useUserStore } from '../../stores/UserStore'
 
 const userStore = useUserStore()
 
-const register = (e) => {
-  e.preventDefault()
+const register = payload => {
   return userStore.register(payload)
 }
-
-const payload = reactive({
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  confirm_password: ''
-})
 </script>
 <style>
 #register_component {
-  background-image: url(/R.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  min-height: 75dvh;
 }
 
-#register_form {
-  max-width: 650px;
-  border-radius: 20px;
-  backdrop-filter: invert(100%);
+#r-background {
+  flex-grow: 1;
+  background-image: url(auth.svg);
+}
+
+#r-content {
+  flex-basis: 30em;
+  padding-bottom: 3em;
+}
+
+#register {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px 30px;
-  padding: 20px;
-  margin: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  border: 1px solid var(--primary);
+  padding: 2em 1em;
+  gap: 1.5em;
 }
-
-#register_form h4 {
-  grid-column: 1 / -1;
-  color: var(--faint);
-  margin: 10px 0;
-}
-
-#register_form label {
-  color: var(--white);
-}
-
-#register_form input {
-  color: var(--text);
-}
-
-#register_form input[type='submit'] {
-  grid-column: 1/1;
-}
-
 #other_action {
   grid-column: 1/ -1;
   text-align: center;
