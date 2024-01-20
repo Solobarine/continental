@@ -8,7 +8,7 @@ console.log(props)
   <div class="summary">
     <div class="title">
       <h3>Transfer Summary</h3>
-      <img src="female_user.png" alt="" />
+      <img src="/src/assets/female_user.png" alt="props.receiver.first_name" />
     </div>
     <div class="field">
       <label>Receiver Name</label>
