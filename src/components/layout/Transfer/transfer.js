@@ -1,6 +1,6 @@
 const transfer_inputs = [
   {
-    label: 'Amount',
+    label: 'Enter Amount',
     type: 'number',
     name: 'amount',
     pattern: '^[0-9]{6}$',
@@ -11,4 +11,3 @@ const transfer_inputs = [
 ]
 
 export default transfer_inputs
-
