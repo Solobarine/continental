@@ -51,6 +51,8 @@ const useTransferStore = defineStore('transfer', {
       this.success = 'Transfer Successful'
       this.error = ''
       useUserStore().updateBalanceTransfer(transfer.data.amount)
+      const amount = { balance: transfer.data.amount }
+      this.$pinia.$patch(useUserStore(), amount)
       router.push('/dashboard')
       return { success: this.success }
     },
@@ -58,4 +60,3 @@ const useTransferStore = defineStore('transfer', {
 })
 
 export { useTransferStore }
-

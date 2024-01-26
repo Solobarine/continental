@@ -29,17 +29,18 @@ const useUserStore = defineStore('users', {
       const url = `${domain}/login`
       axios
         .post(url, payload)
-        .then(user => {
-          this.user = user.data.user
-          this.transactions = user.data.recents
+        .then(res => {
+          this.user = res.data.user
+          this.transactions = res.data.recents
           this.error = ''
-          localStorage.setItem('auth_token', user.data.authorization.token)
+          localStorage.setItem('auth_token', res.data.authorization.token)
           this.is_logged_in = true
           return router.push('/dashboard')
         })
         .catch(error => {
           this.error = error.response.data.message
         })
+      return
     },
     async register(payload) {
       this.loading = true
@@ -60,7 +61,7 @@ const useUserStore = defineStore('users', {
       if (!localStorage.getItem('auth_token')) return router.push('/login')
       this.loading = true
       const url = `${domain}/user`
-      const user = await axios
+      await axios
         .get(url, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
@@ -69,16 +70,19 @@ const useUserStore = defineStore('users', {
         .then(res => {
           console.log(res)
           if (res.data === '') return router.push('/login')
-          this.user = res.data.user
-          this.transactions = res.data.recents
-          this.error = ''
-          this.is_logged_in = true
+          const data = {
+            user: res.data.user,
+            loading: false,
+            is_logged_in: true,
+            error: '',
+            transactions: res.data.recents,
+          }
+          this.$patch(data)
         })
         .catch(() => {
           return router.push('/login')
         })
       this.loading = false
-      console.log(user)
     },
     async getReceiver(payload) {
       const url = `${domain}/receiver/account-number`
@@ -130,6 +134,20 @@ const useUserStore = defineStore('users', {
         },
       })
       return data
+    },
+    async updateProfileImage(data) {
+      const url = `${domain}/user/update_profile_picture`
+      const response = await axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(response)
+      if (response.status === 200) {
+        this.user.profile_photo_url = response.data.file
+      }
+      return response
     },
   },
 })
