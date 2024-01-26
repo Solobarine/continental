@@ -77,11 +77,9 @@
 <script setup>
 import { useUserStore } from '../../stores/UserStore'
 import { formatDistance } from 'date-fns'
+const props = defineProps(['deposits', 'transfers'])
 
-const transactions = await useUserStore().transactions
-const user_id = useUserStore().user.id
-console.log(transactions)
-const { deposits, transfers } = transactions
+const { deposits, transfers } = props
 </script>
 <style scoped>
 h4 {
