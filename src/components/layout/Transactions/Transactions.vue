@@ -49,9 +49,8 @@ import Transfer from '../../reusables/Transfer.vue'
   border-radius: 20px;
   margin: 20px 0;
   border: 1px solid var(--faint);
-  min-height: 80px;
-  min-width: 370px;
-  max-width: 500px;
+  min-height: 7em;
+  max-width: 35em;
 }
 
 h3 {
@@ -66,13 +65,8 @@ hr {
 #transfers > div,
 #deposits > div {
   position: relative;
-  height: 75vh;
-  overflow-y: scroll;
-}
-
-@media screen and (max-width: 650px) {
-  #transaction_section {
-    padding-left: 55px;
-  }
+  min-height: 5em;
+  max-height: 75vh;
+  overflow-y: auto;
 }
 </style>
