@@ -1,12 +1,6 @@
 <template>
-  <section id="top_app">
-    <HeaderVue />
+  <section class="app">
     <router-view></router-view>
-    <FooterVue />
   </section>
 </template>
-<script setup>
-import FooterVue from './components/layout/Footer.vue'
-import HeaderVue from './components/layout/Header.vue'
-</script>
-<style></style>
+<script setup></script>
