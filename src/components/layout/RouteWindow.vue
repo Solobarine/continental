@@ -6,15 +6,25 @@
 </template>
 <script setup>
 import Menu from './Menu.vue'
-import { useUserStore } from '../../stores/UserStore'
-
-let userStore = {}
-if (useUserStore().is_logged_in) {
-  userStore = useUserStore()
-} else {
-  await useUserStore()
-    .getUser()
-    .then(() => (userStore = useUserStore()))
-}
-console.log(userStore)
 </script>
+<style>
+#parent {
+  position: relative;
+  display: flex;
+  gap: 20px;
+}
+
+.route {
+  flex-grow: 1;
+}
+
+@media screen and (max-width: 650px) {
+  #parent {
+    padding-bottom: 20px;
+  }
+
+  .route {
+    padding: 2em 0.1em;
+  }
+}
+</style>
