@@ -22,20 +22,6 @@ const update_inputs = [
     },
   },
   {
-    label: 'Enter Your Email',
-    type: 'email',
-    name: 'email',
-    validation: 'required|email',
-    autocomplete: 'email',
-  },
-  {
-    label: 'Enter Your Password',
-    type: 'password',
-    name: 'password',
-    validation: 'required|length:8,20',
-    autocomplete: 'password',
-  },
-  {
     label: 'Date of Birth',
     type: 'date',
     name: 'date_of_birth',
@@ -68,4 +54,3 @@ const update_inputs = [
 ]
 
 export { update_inputs }
-
