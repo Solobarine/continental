@@ -30,14 +30,7 @@
         <h3>Recent Transactions</h3>
         <hr />
         <div id="recents">
-          <Suspense>
-            <template #default>
-              <recent-transactions />
-            </template>
-            <template #fallback>
-              <loading />
-            </template>
-          </Suspense>
+          <RecentTransactions :deposits="deposits" :transfers="transfers" />
         </div>
       </div>
     </div>
@@ -95,19 +88,15 @@
   </section>
 </template>
 <script setup>
-import ArrowUpRight from '../icons/ArrowUpRight.vue'
-import Card from '../reusables/Card.vue'
 import RecentTransactions from './RecentTransactions.vue'
-import Loading from '../reusables/Loading.vue'
+import Card from '../reusables/Card.vue'
 import { useUserStore } from '../../stores/UserStore'
-import { useTransferStore } from '../../stores/TransferStore'
 import { ref } from 'vue'
-
-await useUserStore().getUser()
 
 const userStore = useUserStore()
 const { user, transactions } = userStore
-console.log(transactions)
+const { deposits, transfers } = transactions
+console.log(user, transactions)
 const account_no = ref('')
 let error = ref('')
 let success = ref('')
