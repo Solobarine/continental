@@ -3,28 +3,6 @@
     <form id="transfer_form">
       <h3>Make a Transfer</h3>
       <small>{{ error }}</small>
-      <small v-if="receiver" id="receiver_name"
-        >{{ receiver.first_name }} {{ receiver.last_name }}</small
-      >
-	  <FormKit type="text"  />
-      <div class="payee_account_number">
-        <label for="account_number">Enter Account Number</label>
-        <input
-          type="text"
-          name="account_number"
-          maxlength="10"
-          pattern="\\d{10}"
-          title="Account Number should be 10 numbers"
-          v-model="payload.account_number"
-          @input="getReceiver"
-        />
-        <small
-          :class="
-            payload.account_number.length === 10 ? 'number' : 'number error'
-          "
-          >Hint: Account Number should be 10 numbers</small
-        >
-      </div>
       <FormInput
         :key="index"
         v-for="(input, index) in transfer_inputs"
@@ -37,8 +15,23 @@
         :error_message="input.error_message"
         :payload="payload"
       />
+      <FormKit
+        type="text"
+        name="account_number"
+        label="Enter Account Number"
+        v-model="payload.account_number"
+        validation="length:10"
+        validation-messages="{
+			required: 'Account Number is Required',
+			length: 'Account Number should be 10 Characters Long'
+		}"
+        @input="getReceiver"
+      />
+      <small v-if="receiver" id="receiver_name">
+        {{ receiver.first_name }} {{ receiver.last_name }}
+      </small>
       <div class="description">
-        <label for="">Transfer Description</label>
+        <label for="description">Transfer Description</label>
         <textarea
           v-model="payload.description"
           name="description"
@@ -49,7 +42,7 @@
         ></textarea>
       </div>
       <input
-        @click="toggle"
+        @click.prevent="toggle"
         :disabled="
           payload.payee_id === '' ||
           (payload.user_id && payload.amount === undefined) ||
@@ -95,15 +88,19 @@ const toggle = () => {
   console.log(showSummary)
 }
 
-const getReceiver = async () => {
+const getReceiverTwo = async data => {
+  console.log(data)
+}
+
+const getReceiver = async data => {
   console.log(payload.account_number)
-  if (payload.account_number.toString().length !== 10) {
+  if (data.toString().length !== 10) {
     payload.payee_id = ''
     receiver.value = ''
   } else {
     error.value = ''
     value = await useUserStore().getReceiver({
-      account_number: payload.account_number,
+      account_number: data,
     })
     console.log(value)
     if (value.status === 200) {
@@ -121,9 +118,9 @@ const handle = data => {
   if (data) return makeTransfer(data)
 }
 
-const makeTransfer = data => {
-  console.log(data)
-  useTransferStore().makeTransfer(data)
+const makeTransfer = () => {
+  console.log(payload)
+  useTransferStore().makeTransfer(payload)
 }
 </script>
 <style scoped>
@@ -164,7 +161,6 @@ option {
 
 form > small {
   grid-column: 1 / -1;
-  grid-row: 6 / 7;
   font-size: 1.2em;
 }
 
