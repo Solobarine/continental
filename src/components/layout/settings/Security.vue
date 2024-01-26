@@ -32,12 +32,7 @@
   </section>
 </template>
 <script setup>
-import { reactive } from 'vue'
 import { password_change, email_change } from './security'
-
-const changePassword = data => {}
-
-const changeEmail = data => {}
 </script>
 <style scoped>
 #security {
