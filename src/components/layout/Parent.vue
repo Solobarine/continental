@@ -1,14 +1,5 @@
 <template>
-  <section>
-    <Suspense>
-      <template #default>
-        <RouteWindow />
-      </template>
-      <template #fallback>
-        <Loading />
-      </template>
-    </Suspense>
-  </section>
+  <RouteWindow />
 </template>
 
 <script setup>

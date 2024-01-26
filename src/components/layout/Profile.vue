@@ -2,13 +2,28 @@
   <section id="profile">
     <div id="user_avatar">
       <div>
-        <img src="/src/assets/male_user.png" alt="lucas" />
+        <img
+          :src="
+            user.profile_photo_url
+              ? `http://localhost:8000/storage/${user.profile_photo_url}`
+              : defaultPhoto
+          "
+          alt="lucas"
+        />
         <div class="newAvatar">
-          <input ref="fileInput" type="file" name="avatar" id="avatar" />
-          <button @click="fileClick" class="getAvatar">
+          <input
+            @change.prevent="loadImage"
+            ref="fileInput"
+            type="file"
+            name="avatar"
+            id="avatar"
+          />
+          <button @click.prevent="() => fileInput.click()" class="getAvatar">
             <ion-icon name="cloud-upload-outline"></ion-icon> Select New Avatar
           </button>
-          <button class="change">Change Avatar</button>
+          <button class="change" @click="uploadImage" :disabled="!fileInput">
+            Change Avatar
+          </button>
         </div>
       </div>
     </div>
@@ -54,12 +69,24 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from '../../stores/UserStore'
+
 const fileInput = ref(null)
-const fileClick = () => {
-  fileInput.value.click()
-}
+const defaultPhoto = ref('/src/assets/male_user.png')
+const image = ref(null)
+
 const userStore = useUserStore()
 const { user } = userStore
+
+const loadImage = () => {
+  const file = fileInput.value.files[0]
+  image.value = file
+}
+
+const uploadImage = async () => {
+  const formData = new FormData()
+  formData.append('avatar', image.value)
+  await userStore.updateProfileImage(formData)
+}
 </script>
 <style scoped>
 #profile {
@@ -79,7 +106,7 @@ const { user } = userStore
   background-color: var(--primary);
   border-radius: 50%;
   width: 6em;
-  padding: 0.5em;
+  aspect-ratio: 1;
   box-shadow: var(--box-shadow);
 }
 
@@ -90,6 +117,7 @@ const { user } = userStore
 button {
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .newAvatar {

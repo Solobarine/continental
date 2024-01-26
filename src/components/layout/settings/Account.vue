@@ -3,10 +3,33 @@
     <div>
       <h3>Update Details</h3>
       <div id="account_profile">
-        <img src="/src/assets/male_user.png" alt="user" />
+        <img
+          ref=""
+          :src="
+            user.profile_photo_url
+              ? `http://localhost:8000/storage/${user.profile_photo_url}`
+              : userImageSrc
+          "
+          alt="user"
+        />
+        <input
+          @change.prevent="loadImage"
+          ref="imageElement"
+          type="file"
+          name="image"
+          id="image"
+        />
         <div>
-          <button type="submit" class="change">Change Profile</button>
-          <button type="submit" class="upload">Upload</button>
+          <button
+            type="submit"
+            class="change"
+            @click.prevent="() => imageElement.click()"
+          >
+            Change Profile
+          </button>
+          <button type="submit" class="upload" @click.prevent="uploadImage">
+            Upload
+          </button>
         </div>
       </div>
       <hr />
@@ -47,18 +70,27 @@
 </template>
 <script setup>
 import { update_inputs } from './account_inputs'
-import { reactive } from 'vue'
+import { ref } from 'vue'
+import { useUserStore } from '../../../stores/UserStore'
 
-const basic_details = reactive({
-  first_name: '',
-  last_name: '',
-  email: '',
-  password: '',
-  dob: '',
-  country: '',
-  state: '',
-  city: '',
-})
+const userStore = useUserStore()
+const { user } = userStore
+console.log(user)
+const userImageSrc = ref('/src/assets/male_user.png')
+const imageElement = ref(null)
+const image = ref('')
+
+const loadImage = () => {
+  const file = imageElement.value.files[0]
+  image.value = file
+  userImageSrc.value = file
+}
+
+const uploadImage = async () => {
+  const formData = new FormData()
+  formData.append('avatar', image.value)
+  await userStore.updateProfileImage(formData)
+}
 
 const update = data => {
   console.log(data)
@@ -87,6 +119,10 @@ const update = data => {
   gap: 10px 30px;
 }
 
+#account_profile input[type='file'] {
+  display: none;
+}
+
 .change {
   background-color: var(--green);
   color: var(--white);
@@ -108,9 +144,11 @@ hr {
   outline: 0px;
 }
 
-#account_profile > div img {
+#account_profile img {
   display: block;
-  width: 45px;
+  width: 4em;
+  aspect-ratio: 1;
+  border-radius: 50%;
 }
 
 #account_profile > div button,

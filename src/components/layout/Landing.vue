@@ -43,7 +43,7 @@
     </div>
   </div>
 </template>
-<script setup></script>
+
 <style scoped>
 #landing {
   display: flex;

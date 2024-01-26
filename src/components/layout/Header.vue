@@ -14,7 +14,11 @@
         <img
           @click="toggleOptions"
           @blur="toggleOptions"
-          src="#"
+          :src="
+            user.profile_photo_url
+              ? `http://localhost:8000/storage/${user.profile_photo_url}`
+              : '/src/assets/male_user.png'
+          "
           alt="User Image"
           class="user_image"
         />
@@ -33,7 +37,8 @@
 import Logo from '../Logo.vue'
 import { useUserStore } from '../../stores/UserStore'
 import { ref } from 'vue'
-
+console.log(useUserStore())
+const props = defineProps(['user'])
 const user = useUserStore().user
 console.log(user)
 const options = ref(false)
@@ -71,7 +76,6 @@ header .logo {
 }
 
 .user_image {
-  display: flex;
   width: 2em;
   flex-grow: 0;
   flex-shrink: 0;
@@ -79,7 +83,6 @@ header .logo {
   aspect-ratio: 1 /1;
   border-radius: 50%;
   cursor: pointer;
-  padding-right: 3em;
 }
 
 .user_options {
