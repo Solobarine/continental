@@ -83,7 +83,7 @@ const register = payload => {
 
 #r-background {
   flex-grow: 1;
-  background-image: url(auth.svg);
+  background-image: url(../../../public/auth.svg);
 }
 
 #r-content {

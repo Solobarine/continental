@@ -54,7 +54,7 @@ console.log(userStore)
 
 .l-background {
   flex-grow: 1;
-  background: url(auth.svg);
+  background: url(../../../public/auth.svg);
 }
 
 #l-content {
