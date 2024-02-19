@@ -11,7 +11,7 @@
           last_name: '',
           email: '',
           password: '',
-          confirm_password: '',
+          password_confirm: '',
         }"
         @submit="register"
         id="register"
@@ -51,7 +51,7 @@
         />
         <FormKit
           type="password"
-          name="confirm_password"
+          name="password_confirm"
           placeholder="Repeat your Password"
           validation="required|confirm"
           :validation-messages="{
@@ -67,13 +67,13 @@
   </section>
 </template>
 <script setup>
-import { useUserStore } from '../../stores/UserStore'
+import { useUserStore } from "../../stores/UserStore";
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 
-const register = payload => {
-  return userStore.register(payload)
-}
+const register = (payload) => {
+  return userStore.register(payload);
+};
 </script>
 <style>
 #register_component {
@@ -113,5 +113,28 @@ const register = payload => {
 #register_form span {
   color: var(--red);
   font-weight: 600;
+}
+
+#r-content .formkit-inner input {
+  padding: 0.75em 0.5em;
+  width: 100%;
+  border-radius: 0.5em;
+  outline: 0;
+  border: 1px solid var(--secondary);
+  background-color: var(--faint);
+}
+
+.formkit-inner input:focus {
+  border: 1px solid var(--primary);
+}
+
+#r-content .formkit-input {
+  padding: 0.5em 5em;
+  display: block;
+  margin: auto;
+  border-radius: 0.5em;
+  border: none;
+  outline: none;
+  background-color: var(--primary);
 }
 </style>
