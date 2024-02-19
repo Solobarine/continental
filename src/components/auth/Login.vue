@@ -36,15 +36,15 @@
   </section>
 </template>
 <script setup>
-import { useUserStore } from '../../stores/UserStore'
+import { useUserStore } from "../../stores/UserStore";
 
-const login = payload => {
-  console.log(payload)
-  return userStore.login(payload)
-}
+const login = (payload) => {
+  console.log(payload);
+  return userStore.login(payload);
+};
 
-const userStore = useUserStore()
-console.log(userStore)
+const userStore = useUserStore();
+console.log(userStore);
 </script>
 <style>
 #login_component {
@@ -106,6 +106,5 @@ console.log(userStore)
   border: none;
   outline: none;
   background-color: var(--primary);
-  color: var(--faint);
 }
 </style>
